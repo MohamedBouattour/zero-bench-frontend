@@ -2,13 +2,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatusBadgeComponent } from '../../core/widgets/status-badge/status-badge.component';
 import { DataTableContainerComponent } from '../../core/widgets/data-table/data-table-container.component';
+import { SkeletonComponent } from '../../core/widgets/skeleton/skeleton.component';
+import { ToastService } from '../../core/services/toast.service';
 import { ConsultantsStore } from './stores/consultants.store';
 import { ConsultantStatus } from './models/consultant.model';
 
 @Component({
   selector: 'app-consultants',
   standalone: true,
-  imports: [CommonModule, StatusBadgeComponent, DataTableContainerComponent],
+  imports: [CommonModule, StatusBadgeComponent, DataTableContainerComponent, SkeletonComponent],
   template: `
     <div class="space-y-6 pb-12">
       <!-- Domain Header -->
@@ -110,24 +112,22 @@ import { ConsultantStatus } from './models/consultant.model';
         title="Consultant Roster"
         subtitle="Live synchronization with backend API via NgRx SignalStore"
       >
-        @if (store.isLoading() && store.consultants().length === 0) {
-          <div class="p-8 text-center text-xs text-outline animate-pulse">
-            Loading consultants from API...
-          </div>
-        } @else {
-          <table class="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr class="border-b border-outline-variant dark:border-slate-800 bg-surface-container-low/50 dark:bg-slate-800/40 text-outline dark:text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
-                <th class="px-5 py-3">Consultant</th>
-                <th class="px-5 py-3">Seniority</th>
-                <th class="px-5 py-3">Status</th>
-                <th class="px-5 py-3">Key Skills</th>
-                <th class="px-5 py-3">TJM (€/day)</th>
-                <th class="px-5 py-3">Assignment / Bench</th>
-                <th class="px-5 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-outline-variant/60 dark:divide-slate-800/60">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-outline-variant dark:border-slate-800 bg-surface-container-low/50 dark:bg-slate-800/40 text-outline dark:text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
+              <th class="px-5 py-3">Consultant</th>
+              <th class="px-5 py-3">Seniority</th>
+              <th class="px-5 py-3">Status</th>
+              <th class="px-5 py-3">Key Skills</th>
+              <th class="px-5 py-3">TJM (€/day)</th>
+              <th class="px-5 py-3">Assignment / Bench</th>
+              <th class="px-5 py-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/60 dark:divide-slate-800/60">
+            @if (store.isLoading() && store.consultants().length === 0) {
+              <app-skeleton variant="table-row" [count]="5" [columns]="7"></app-skeleton>
+            } @else {
               @for (c of store.filteredConsultants(); track c.id) {
                 <tr class="hover:bg-surface-container-low/40 dark:hover:bg-slate-800/30 transition-colors">
                   <td class="px-5 py-3 font-medium text-on-surface dark:text-white">
@@ -177,15 +177,16 @@ import { ConsultantStatus } from './models/consultant.model';
                   </td>
                 </tr>
               }
-            </tbody>
-          </table>
-        }
+            }
+          </tbody>
+        </table>
       </app-data-table-container>
     </div>
   `,
 })
 export class ConsultantsComponent implements OnInit {
   readonly store = inject(ConsultantsStore);
+  private readonly toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.store.loadAll();
@@ -197,6 +198,6 @@ export class ConsultantsComponent implements OnInit {
   }
 
   onAddConsultant(): void {
-    alert('Trigger Add Consultant dialog');
+    this.toastService.info('Add Consultant intake form initiated.', { title: 'Talent Intake' });
   }
 }

@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatusBadgeComponent } from '../../core/widgets/status-badge/status-badge.component';
 import { StatCardComponent } from '../../core/widgets/stat-card/stat-card.component';
 import { AiSparkleCardComponent } from '../../core/widgets/ai-sparkle-card/ai-sparkle-card.component';
 import { DataTableContainerComponent } from '../../core/widgets/data-table/data-table-container.component';
+import { SkeletonComponent } from '../../core/widgets/skeleton/skeleton.component';
+import { ToastService } from '../../core/services/toast.service';
+import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
   selector: 'app-design-system',
@@ -14,6 +17,7 @@ import { DataTableContainerComponent } from '../../core/widgets/data-table/data-
     StatCardComponent,
     AiSparkleCardComponent,
     DataTableContainerComponent,
+    SkeletonComponent,
   ],
   template: `
     <div class="space-y-8 pb-16">
@@ -199,7 +203,135 @@ import { DataTableContainerComponent } from '../../core/widgets/data-table/data-
           </table>
         </app-data-table-container>
       </section>
+
+      <!-- Toast Notification System Showcase -->
+      <section class="space-y-3">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-outline dark:text-slate-400">
+          7. Toast Notification System
+        </h3>
+        <div class="p-4 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 space-y-3">
+          <p class="text-xs text-outline dark:text-slate-400">
+            Click any button below to trigger real-time reactive toast notifications with auto-dismissal and Stitch semantic colors.
+          </p>
+          <div class="flex flex-wrap gap-2.5">
+            <button
+              type="button"
+              (click)="triggerSuccessToast()"
+              class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+            >
+              <span class="material-symbols-outlined text-[16px]">check_circle</span>
+              <span>Trigger Success Toast</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="triggerErrorToast()"
+              class="px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+            >
+              <span class="material-symbols-outlined text-[16px]">error</span>
+              <span>Trigger Error Toast</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="triggerWarningToast()"
+              class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+            >
+              <span class="material-symbols-outlined text-[16px]">warning</span>
+              <span>Trigger Warning Toast</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="triggerInfoToast()"
+              class="px-3.5 py-2 bg-secondary-blue hover:opacity-90 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-opacity shadow-xs"
+            >
+              <span class="material-symbols-outlined text-[16px]">info</span>
+              <span>Trigger Info Toast</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="simulateHttpLoading()"
+              class="px-3.5 py-2 border border-secondary-blue text-secondary-blue dark:text-blue-400 rounded-xl text-xs font-semibold flex items-center gap-1.5 hover:bg-secondary-blue/10 transition-colors"
+            >
+              <span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+              <span>Simulate HTTP Loading</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skeleton & Loading Placeholders Showcase -->
+      <section class="space-y-3">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-outline dark:text-slate-400">
+          8. Atomic Skeleton Placeholders
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Text and Circle Variants -->
+          <div class="p-5 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 space-y-4">
+            <span class="text-xs font-bold text-on-surface dark:text-white block">Text & Avatar Placeholders</span>
+            <div class="flex items-center gap-3">
+              <app-skeleton variant="circle"></app-skeleton>
+              <div class="flex-1 space-y-2">
+                <app-skeleton variant="text" width="60%"></app-skeleton>
+                <app-skeleton variant="text" width="40%"></app-skeleton>
+              </div>
+            </div>
+            <div class="pt-2 space-y-2">
+              <app-skeleton variant="text" [count]="3"></app-skeleton>
+            </div>
+          </div>
+
+          <!-- Card Variant -->
+          <div>
+            <span class="text-xs font-bold text-on-surface dark:text-white block mb-2">Card Placeholder</span>
+            <app-skeleton variant="card"></app-skeleton>
+          </div>
+        </div>
+      </section>
     </div>
   `,
 })
-export class DesignSystemComponent {}
+export class DesignSystemComponent {
+  private readonly toastService = inject(ToastService);
+  private readonly loadingService = inject(LoadingService);
+
+  triggerSuccessToast(): void {
+    this.toastService.success('Consultant assignment confirmed with BNP Paribas for 6 months.', {
+      title: 'Mandate Staffed',
+    });
+  }
+
+  triggerErrorToast(): void {
+    this.toastService.error('Failed to sync TJM rate with accounting service.', {
+      title: 'Synchronization Error',
+    });
+  }
+
+  triggerWarningToast(): void {
+    this.toastService.warning('Consultant contract for Sarah Connor will expire in 7 days.', {
+      title: 'Contract Ending Soon',
+    });
+  }
+
+  triggerInfoToast(): void {
+    this.toastService.info('AI Matching algorithm has processed 14 new candidates for RFP Staffing.', {
+      title: 'Intelligence Pipeline',
+    });
+  }
+
+  simulateHttpLoading(): void {
+    this.loadingService.show();
+    this.toastService.info('HTTP Request simulated. Top loading indicator activated.', {
+      title: 'HTTP Call Active',
+      duration: 2000,
+    });
+    setTimeout(() => {
+      this.loadingService.hide();
+      this.toastService.success('HTTP Request completed. Loading bar dismissed.', {
+        title: 'Response Received',
+      });
+    }, 2000);
+  }
+}
