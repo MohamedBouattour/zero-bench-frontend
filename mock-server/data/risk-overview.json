@@ -1,0 +1,17 @@
+{
+  "metrics": {
+    "financialExposure": "€48,250",
+    "financialExposureMonthly": 48250,
+    "financialExposureTrend": "+12.4%",
+    "financialExposureTrendDirection": "up-bad",
+    "onBenchCount": 14,
+    "onBenchSubtext": "3 ending this week",
+    "placementVelocity": "8.4",
+    "placementVelocityTrend": "-1.2 days",
+    "placementVelocityTrendDirection": "down-good",
+    "avgBenchDays": "18.5",
+    "avgBenchDaysTrend": "-0.5",
+    "avgBenchDaysTrendDirection": "down-good"
+  },
+  "highRiskConsultantIds": ["1", "3", "5"]
+}

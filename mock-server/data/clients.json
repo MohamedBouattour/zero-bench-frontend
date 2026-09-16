@@ -1,0 +1,47 @@
+[
+  {
+    "id": "c1",
+    "name": "BNP Paribas Group",
+    "industry": "Banking & Financial Services",
+    "activeConsultants": 12,
+    "openRFPs": 3,
+    "monthlyRevenue": 145000,
+    "status": "active"
+  },
+  {
+    "id": "c2",
+    "name": "Airbus Defense & Space",
+    "industry": "Aerospace & Defense",
+    "activeConsultants": 8,
+    "openRFPs": 2,
+    "monthlyRevenue": 98000,
+    "status": "active"
+  },
+  {
+    "id": "c3",
+    "name": "LVMH Digital",
+    "industry": "Luxury Retail & E-Commerce",
+    "activeConsultants": 6,
+    "openRFPs": 1,
+    "monthlyRevenue": 72000,
+    "status": "active"
+  },
+  {
+    "id": "c4",
+    "name": "Société Générale",
+    "industry": "Corporate & Investment Banking",
+    "activeConsultants": 14,
+    "openRFPs": 4,
+    "monthlyRevenue": 168000,
+    "status": "active"
+  },
+  {
+    "id": "c5",
+    "name": "Thales Group",
+    "industry": "Critical Information Systems",
+    "activeConsultants": 9,
+    "openRFPs": 2,
+    "monthlyRevenue": 112000,
+    "status": "active"
+  }
+]

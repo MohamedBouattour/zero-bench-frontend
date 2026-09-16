@@ -1,0 +1,79 @@
+[
+  {
+    "id": "1",
+    "fullName": "Alexandre Martin",
+    "title": "Senior Angular / Cloud Architect",
+    "seniority": "Lead",
+    "status": "on_bench",
+    "primarySkill": "Angular & NestJS",
+    "skills": ["Angular", "TypeScript", "Docker", "AWS", "RxJS"],
+    "tjm": 750,
+    "daysOnBench": 22
+  },
+  {
+    "id": "2",
+    "fullName": "Camille Leroy",
+    "title": "Data Engineer / Python Specialist",
+    "seniority": "Senior",
+    "status": "ending_soon",
+    "primarySkill": "Python & Spark",
+    "skills": ["Python", "Apache Spark", "PostgreSQL", "Airflow", "GCP"],
+    "tjm": 680,
+    "missionEndDate": "30 Sep 2026"
+  },
+  {
+    "id": "3",
+    "fullName": "Thomas Bernard",
+    "title": "DevOps & Kubernetes Engineer",
+    "seniority": "Senior",
+    "status": "on_bench",
+    "primarySkill": "Kubernetes / Terraform",
+    "skills": ["K8s", "Terraform", "CI/CD", "Azure", "Linux"],
+    "tjm": 720,
+    "daysOnBench": 14
+  },
+  {
+    "id": "4",
+    "fullName": "Sarah Benali",
+    "title": "Fullstack React / Node Developer",
+    "seniority": "Mid",
+    "status": "on_mission",
+    "primarySkill": "React & Node.js",
+    "skills": ["React", "Next.js", "Node.js", "GraphQL", "Tailwind"],
+    "tjm": 540,
+    "clientName": "Société Générale"
+  },
+  {
+    "id": "5",
+    "fullName": "Julien Moreau",
+    "title": "Java Spring Boot / Microservices",
+    "seniority": "Senior",
+    "status": "on_bench",
+    "primarySkill": "Java & Spring",
+    "skills": ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Kubernetes"],
+    "tjm": 690,
+    "daysOnBench": 31
+  },
+  {
+    "id": "6",
+    "fullName": "Inès Dupont",
+    "title": "AI & Computer Vision Engineer",
+    "seniority": "Mid",
+    "status": "ending_soon",
+    "primarySkill": "PyTorch & FastAI",
+    "skills": ["Python", "PyTorch", "OpenCV", "FastAPI", "Docker"],
+    "tjm": 620,
+    "missionEndDate": "15 Oct 2026"
+  },
+  {
+    "id": "7",
+    "fullName": "David Chen",
+    "title": "Mobile Tech Lead (Flutter / iOS)",
+    "seniority": "Lead",
+    "status": "on_mission",
+    "primarySkill": "Flutter & Dart",
+    "skills": ["Flutter", "Dart", "Swift", "Firebase", "CI/CD"],
+    "tjm": 780,
+    "clientName": "BNP Paribas"
+  }
+]

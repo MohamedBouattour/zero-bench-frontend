@@ -1,0 +1,44 @@
+[
+  {
+    "id": "p1",
+    "stage": "matched",
+    "candidateName": "Alexandre M.",
+    "candidateRole": "Senior Angular Lead",
+    "clientName": "BNP Paribas",
+    "matchScore": 96,
+    "statusLabel": "96% Match"
+  },
+  {
+    "id": "p2",
+    "stage": "matched",
+    "candidateName": "Julien M.",
+    "candidateRole": "Java Microservices Specialist",
+    "clientName": "Thales Group",
+    "matchScore": 91,
+    "statusLabel": "91% Match"
+  },
+  {
+    "id": "p3",
+    "stage": "pitch_sent",
+    "candidateName": "Thomas B.",
+    "candidateRole": "K8s & Cloud Architect",
+    "clientName": "Airbus Defense",
+    "statusLabel": "Awaiting Feedback"
+  },
+  {
+    "id": "p4",
+    "stage": "interviewing",
+    "candidateName": "Camille L.",
+    "candidateRole": "Data Pipeline Specialist",
+    "clientName": "LVMH Digital",
+    "statusLabel": "Final Round Thu"
+  },
+  {
+    "id": "p5",
+    "stage": "signed",
+    "candidateName": "Sarah B.",
+    "candidateRole": "Fullstack React Developer",
+    "clientName": "Société Générale",
+    "statusLabel": "Starts Oct 1"
+  }
+]
