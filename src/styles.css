@@ -62,3 +62,13 @@
 html, body {
   height: 100%;
 }
+
+html.dark {
+  color-scheme: dark;
+  background-color: #020617;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+  background-color: #f8f9ff;
+}
