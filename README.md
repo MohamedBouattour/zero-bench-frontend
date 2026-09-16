@@ -11,9 +11,10 @@ Designed in alignment with the [Stitch Design System (Project 151471217318407907
 - **Framework:** Angular 21 (LTS) Standalone
 - **Change Detection:** Zoneless (`provideZonelessChangeDetection()`) — zero `zone.js` runtime overhead
 - **Rendering:** Angular SSR (`@angular/ssr`) with static route prerendering
-- **State Management:** Pure Native Signals (`signal`, `computed`, `effect`) — 0 third-party state libraries
+- **State Management:** `@ngrx/signals` SignalStores (Zoneless native, `withState`, `withComputed`, `withMethods`)
+- **Mock Architecture:** Zero mock overhead in `src/` — external Express server (`mock-server/`) + CLI reverse proxy (`proxy.conf.json`)
 - **Styling:** Tailwind CSS v4 with custom Stitch design tokens and full dark/light theme adaptability
-- **Component Architecture:** Domain-Driven Design (DDD) with strict layer hierarchy
+- **Component Architecture:** Domain-Driven Design (DDD) with strict layer hierarchy and externalized models
 - **Zero Third-Party UI Libs:** 100% bespoke, high-performance atomic components and widgets
 
 ---

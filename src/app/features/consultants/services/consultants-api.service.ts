@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Consultant } from '../../../core/models/consultant.model';
+import { Consultant } from '../models/consultant.model';
 import { API_BASE_URL } from '../../../core/tokens/api.token';
 
 @Injectable({

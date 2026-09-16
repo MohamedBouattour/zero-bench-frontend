@@ -1,16 +1,8 @@
 import { inject, computed } from '@angular/core';
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
-import { Consultant, ConsultantStatus } from '../../../core/models/consultant.model';
+import { Consultant, ConsultantStatus, ConsultantsState } from '../models/consultant.model';
 import { ConsultantsApiService } from '../services/consultants-api.service';
-
-export interface ConsultantsState {
-  consultants: Consultant[];
-  filterStatus: ConsultantStatus | 'ALL';
-  searchQuery: string;
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialState: ConsultantsState = {
   consultants: [],

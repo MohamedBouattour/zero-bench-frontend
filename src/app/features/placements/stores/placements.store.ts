@@ -1,14 +1,8 @@
 import { inject, computed } from '@angular/core';
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
-import { PlacementOpportunity } from '../../../core/models/placement.model';
+import { PlacementOpportunity, PlacementsState } from '../models/placement.model';
 import { PlacementsApiService } from '../services/placements-api.service';
-
-export interface PlacementsState {
-  opportunities: PlacementOpportunity[];
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialState: PlacementsState = {
   opportunities: [],

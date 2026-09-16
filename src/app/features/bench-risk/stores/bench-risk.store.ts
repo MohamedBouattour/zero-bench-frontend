@@ -1,16 +1,8 @@
 import { inject } from '@angular/core';
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
-import { RiskMetrics } from '../../../core/models/risk.model';
-import { Consultant } from '../../../core/models/consultant.model';
+import { BenchRiskState } from '../models/bench-risk.model';
 import { BenchRiskApiService } from '../services/bench-risk-api.service';
-
-export interface BenchRiskState {
-  metrics: RiskMetrics | null;
-  highRiskConsultants: Consultant[];
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialState: BenchRiskState = {
   metrics: null,

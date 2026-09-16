@@ -1,14 +1,8 @@
 import { inject } from '@angular/core';
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
-import { ClientAccount } from '../../../core/models/customer.model';
+import { ClientsState } from '../models/customer.model';
 import { ClientsApiService } from '../services/clients-api.service';
-
-export interface ClientsState {
-  clients: ClientAccount[];
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialState: ClientsState = {
   clients: [],

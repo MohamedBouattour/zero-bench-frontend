@@ -2,11 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
-
-export interface BreadcrumbItem {
-  label: string;
-  url: string;
-}
+import { BreadcrumbItem } from '../../models/breadcrumb.model';
 
 @Component({
   selector: 'app-breadcrumbs',

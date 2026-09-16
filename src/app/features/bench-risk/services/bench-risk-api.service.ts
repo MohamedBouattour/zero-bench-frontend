@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RiskOverviewResponse } from '../../../core/models/risk.model';
+import { RiskOverviewResponse } from '../models/bench-risk.model';
 import { API_BASE_URL } from '../../../core/tokens/api.token';
 
 @Injectable({

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StatusBadgeComponent } from '../../core/widgets/status-badge/status-badge.component';
 import { DataTableContainerComponent } from '../../core/widgets/data-table/data-table-container.component';
 import { ConsultantsStore } from './stores/consultants.store';
-import { ConsultantStatus } from '../../core/models/consultant.model';
+import { ConsultantStatus } from './models/consultant.model';
 
 @Component({
   selector: 'app-consultants',
