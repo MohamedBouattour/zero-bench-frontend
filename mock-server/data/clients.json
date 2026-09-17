@@ -3,45 +3,162 @@
     "id": "c1",
     "name": "BNP Paribas Group",
     "industry": "Banking & Financial Services",
-    "activeConsultants": 12,
-    "openRFPs": 3,
-    "monthlyRevenue": 145000,
-    "status": "active"
+    "status": "active",
+    "city": "Paris",
+    "contactName": "Céline Garnier",
+    "contactEmail": "celine.garnier@bnpparibas.example",
+    "accountSince": "2019-03-01",
+    "rfps": [
+      {
+        "id": "r1",
+        "title": "Digital Portal Lead Architect",
+        "requiredSkills": ["Angular", "TypeScript", "AWS", "NestJS"],
+        "seniority": "Lead",
+        "dailyBudget": 800,
+        "startDate": "2026-10-05",
+        "status": "open"
+      },
+      {
+        "id": "r2",
+        "title": "Data Platform Engineer",
+        "requiredSkills": ["Python", "Apache Spark", "Airflow"],
+        "seniority": "Senior",
+        "dailyBudget": 700,
+        "startDate": "2026-10-19",
+        "status": "open"
+      }
+    ]
   },
   {
     "id": "c2",
-    "name": "Airbus Defense & Space",
+    "name": "Airbus Defence & Space",
     "industry": "Aerospace & Defense",
-    "activeConsultants": 8,
-    "openRFPs": 2,
-    "monthlyRevenue": 98000,
-    "status": "active"
+    "status": "active",
+    "city": "Toulouse",
+    "contactName": "Marc Delaunay",
+    "contactEmail": "marc.delaunay@airbus.example",
+    "accountSince": "2020-06-15",
+    "rfps": [
+      {
+        "id": "r3",
+        "title": "Cloud Platform Engineer",
+        "requiredSkills": ["Kubernetes", "Terraform", "Azure", "CI/CD"],
+        "seniority": "Senior",
+        "dailyBudget": 750,
+        "startDate": "2026-10-01",
+        "status": "open"
+      },
+      {
+        "id": "r4",
+        "title": "Ground Segment Rust Developer",
+        "requiredSkills": ["Rust", "Linux", "gRPC"],
+        "seniority": "Senior",
+        "dailyBudget": 760,
+        "startDate": "2026-11-02",
+        "status": "open"
+      }
+    ]
   },
   {
     "id": "c3",
     "name": "LVMH Digital",
     "industry": "Luxury Retail & E-Commerce",
-    "activeConsultants": 6,
-    "openRFPs": 1,
-    "monthlyRevenue": 72000,
-    "status": "active"
+    "status": "active",
+    "city": "Paris",
+    "contactName": "Sophie Marchand",
+    "contactEmail": "sophie.marchand@lvmh.example",
+    "accountSince": "2022-01-10",
+    "rfps": [
+      {
+        "id": "r5",
+        "title": "Fullstack React Developer",
+        "requiredSkills": ["React", "Next.js", "Node.js", "TypeScript"],
+        "seniority": "Mid",
+        "dailyBudget": 600,
+        "startDate": "2026-10-12",
+        "status": "open"
+      }
+    ]
   },
   {
     "id": "c4",
     "name": "Société Générale",
     "industry": "Corporate & Investment Banking",
-    "activeConsultants": 14,
-    "openRFPs": 4,
-    "monthlyRevenue": 168000,
-    "status": "active"
+    "status": "active",
+    "city": "La Défense",
+    "contactName": "Olivier Perrin",
+    "contactEmail": "olivier.perrin@socgen.example",
+    "accountSince": "2018-09-03",
+    "rfps": [
+      {
+        "id": "r6",
+        "title": "Java Microservices Lead",
+        "requiredSkills": ["Java", "Spring Boot", "Kafka", "Kubernetes"],
+        "seniority": "Senior",
+        "dailyBudget": 720,
+        "startDate": "2026-10-05",
+        "status": "open"
+      },
+      {
+        "id": "r7",
+        "title": "Angular Front-end Developer",
+        "requiredSkills": ["Angular", "TypeScript", "RxJS"],
+        "seniority": "Mid",
+        "dailyBudget": 600,
+        "startDate": "2026-10-26",
+        "status": "open"
+      }
+    ]
   },
   {
     "id": "c5",
     "name": "Thales Group",
     "industry": "Critical Information Systems",
-    "activeConsultants": 9,
-    "openRFPs": 2,
-    "monthlyRevenue": 112000,
-    "status": "active"
+    "status": "active",
+    "city": "Vélizy",
+    "contactName": "Isabelle Roy",
+    "contactEmail": "isabelle.roy@thalesgroup.example",
+    "accountSince": "2021-04-20",
+    "rfps": [
+      {
+        "id": "r8",
+        "title": "Cloud Security Architect",
+        "requiredSkills": ["Cloud Security", "IAM", "Azure"],
+        "seniority": "Senior",
+        "dailyBudget": 820,
+        "startDate": "2026-11-16",
+        "status": "open"
+      },
+      {
+        "id": "r9",
+        "title": "MLOps Engineer",
+        "requiredSkills": ["Python", "PyTorch", "Docker", "Kubernetes"],
+        "seniority": "Senior",
+        "dailyBudget": 700,
+        "startDate": "2026-10-19",
+        "status": "open"
+      }
+    ]
+  },
+  {
+    "id": "c6",
+    "name": "Decathlon Digital",
+    "industry": "Sports Retail & E-Commerce",
+    "status": "prospect",
+    "city": "Lille",
+    "contactName": "Antoine Lefebvre",
+    "contactEmail": "antoine.lefebvre@decathlon.example",
+    "accountSince": "2026-08-01",
+    "rfps": [
+      {
+        "id": "r10",
+        "title": "QA Automation Engineer",
+        "requiredSkills": ["Playwright", "Cypress", "TypeScript", "CI/CD"],
+        "seniority": "Mid",
+        "dailyBudget": 520,
+        "startDate": "2026-10-05",
+        "status": "open"
+      }
+    ]
   }
 ]

@@ -4,6 +4,8 @@ export * from './navigation.model';
 export * from './breadcrumb.model';
 export * from './toast.model';
 export * from './loading.model';
+export * from './notification.model';
+export * from './session.model';
 export * from './consultant.model';
 export * from './risk.model';
 export * from './customer.model';

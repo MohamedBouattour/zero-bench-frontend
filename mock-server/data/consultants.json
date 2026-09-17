@@ -6,9 +6,20 @@
     "seniority": "Lead",
     "status": "on_bench",
     "primarySkill": "Angular & NestJS",
-    "skills": ["Angular", "TypeScript", "Docker", "AWS", "RxJS"],
+    "skills": ["Angular", "TypeScript", "NestJS", "Docker", "AWS", "RxJS"],
     "tjm": 750,
-    "daysOnBench": 22
+    "yearsOfExperience": 11,
+    "daysOnBench": 22,
+    "email": "alexandre.martin@benchzero.io",
+    "phone": "+33 6 12 48 90 11",
+    "location": "Paris",
+    "languages": ["French", "English"],
+    "certifications": ["AWS Solutions Architect – Associate"],
+    "bio": "Front-end architect specialised in large Angular micro-frontend platforms, zoneless migrations and secure banking portals.",
+    "missionHistory": [
+      { "clientName": "AXA France", "role": "Front-end Architect", "startDate": "2024-02-01", "endDate": "2026-08-25" },
+      { "clientName": "Orange Business", "role": "Angular Tech Lead", "startDate": "2021-09-01", "endDate": "2024-01-15" }
+    ]
   },
   {
     "id": "2",
@@ -19,7 +30,18 @@
     "primarySkill": "Python & Spark",
     "skills": ["Python", "Apache Spark", "PostgreSQL", "Airflow", "GCP"],
     "tjm": 680,
-    "missionEndDate": "30 Sep 2026"
+    "yearsOfExperience": 8,
+    "missionEndDate": "2026-09-30",
+    "clientId": "c3",
+    "email": "camille.leroy@benchzero.io",
+    "phone": "+33 6 23 51 77 02",
+    "location": "Paris",
+    "languages": ["French", "English"],
+    "certifications": ["Google Professional Data Engineer"],
+    "bio": "Builds batch and streaming data platforms on GCP with Spark and Airflow for retail analytics teams.",
+    "missionHistory": [
+      { "clientName": "LVMH Digital", "role": "Data Engineer", "startDate": "2025-03-01", "endDate": "2026-09-30" }
+    ]
   },
   {
     "id": "3",
@@ -28,9 +50,19 @@
     "seniority": "Senior",
     "status": "on_bench",
     "primarySkill": "Kubernetes / Terraform",
-    "skills": ["K8s", "Terraform", "CI/CD", "Azure", "Linux"],
+    "skills": ["Kubernetes", "Terraform", "CI/CD", "Azure", "Linux"],
     "tjm": 720,
-    "daysOnBench": 14
+    "yearsOfExperience": 9,
+    "daysOnBench": 14,
+    "email": "thomas.bernard@benchzero.io",
+    "phone": "+33 6 34 62 18 45",
+    "location": "Lyon",
+    "languages": ["French", "English", "German"],
+    "certifications": ["CKA – Certified Kubernetes Administrator", "HashiCorp Terraform Associate"],
+    "bio": "Platform engineer automating multi-cluster Kubernetes estates and GitOps pipelines for regulated industries.",
+    "missionHistory": [
+      { "clientName": "Michelin", "role": "Platform Engineer", "startDate": "2023-06-01", "endDate": "2026-09-02" }
+    ]
   },
   {
     "id": "4",
@@ -39,9 +71,21 @@
     "seniority": "Mid",
     "status": "on_mission",
     "primarySkill": "React & Node.js",
-    "skills": ["React", "Next.js", "Node.js", "GraphQL", "Tailwind"],
+    "skills": ["React", "Next.js", "Node.js", "GraphQL", "TypeScript"],
     "tjm": 540,
-    "clientName": "Société Générale"
+    "yearsOfExperience": 5,
+    "missionEndDate": "2027-03-31",
+    "clientId": "c4",
+    "email": "sarah.benali@benchzero.io",
+    "phone": "+33 6 45 73 29 64",
+    "location": "Paris",
+    "languages": ["French", "English", "Arabic"],
+    "certifications": [],
+    "bio": "Fullstack developer delivering React/Next.js customer journeys backed by GraphQL gateways.",
+    "missionHistory": [
+      { "clientName": "Société Générale", "role": "Fullstack Developer", "startDate": "2026-04-01", "endDate": "2027-03-31" },
+      { "clientName": "Leboncoin", "role": "React Developer", "startDate": "2023-01-09", "endDate": "2026-02-27" }
+    ]
   },
   {
     "id": "5",
@@ -52,7 +96,17 @@
     "primarySkill": "Java & Spring",
     "skills": ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Kubernetes"],
     "tjm": 690,
-    "daysOnBench": 31
+    "yearsOfExperience": 10,
+    "daysOnBench": 31,
+    "email": "julien.moreau@benchzero.io",
+    "phone": "+33 6 56 84 30 77",
+    "location": "Toulouse",
+    "languages": ["French", "English"],
+    "certifications": ["Oracle Certified Professional Java SE 17"],
+    "bio": "Backend engineer designing event-driven Spring Boot microservices on Kafka for payment and trading systems.",
+    "missionHistory": [
+      { "clientName": "Natixis", "role": "Java Backend Engineer", "startDate": "2022-10-03", "endDate": "2026-08-14" }
+    ]
   },
   {
     "id": "6",
@@ -60,10 +114,21 @@
     "title": "AI & Computer Vision Engineer",
     "seniority": "Mid",
     "status": "ending_soon",
-    "primarySkill": "PyTorch & FastAI",
+    "primarySkill": "PyTorch & FastAPI",
     "skills": ["Python", "PyTorch", "OpenCV", "FastAPI", "Docker"],
     "tjm": 620,
-    "missionEndDate": "15 Oct 2026"
+    "yearsOfExperience": 6,
+    "missionEndDate": "2026-10-15",
+    "clientId": "c2",
+    "email": "ines.dupont@benchzero.io",
+    "phone": "+33 6 67 95 41 88",
+    "location": "Toulouse",
+    "languages": ["French", "English", "Spanish"],
+    "certifications": ["TensorFlow Developer Certificate"],
+    "bio": "Computer vision engineer shipping satellite imagery models from research notebooks to FastAPI services.",
+    "missionHistory": [
+      { "clientName": "Airbus Defence & Space", "role": "Computer Vision Engineer", "startDate": "2025-01-06", "endDate": "2026-10-15" }
+    ]
   },
   {
     "id": "7",
@@ -74,6 +139,169 @@
     "primarySkill": "Flutter & Dart",
     "skills": ["Flutter", "Dart", "Swift", "Firebase", "CI/CD"],
     "tjm": 780,
-    "clientName": "BNP Paribas"
+    "yearsOfExperience": 12,
+    "missionEndDate": "2027-01-31",
+    "clientId": "c1",
+    "email": "david.chen@benchzero.io",
+    "phone": "+33 6 78 06 52 99",
+    "location": "Paris",
+    "languages": ["English", "French", "Mandarin"],
+    "certifications": [],
+    "bio": "Leads cross-platform mobile squads building retail banking apps with Flutter and native iOS modules.",
+    "missionHistory": [
+      { "clientName": "BNP Paribas Group", "role": "Mobile Tech Lead", "startDate": "2025-02-01", "endDate": "2027-01-31" }
+    ]
+  },
+  {
+    "id": "8",
+    "fullName": "Léa Fontaine",
+    "title": "Azure & .NET Solutions Architect",
+    "seniority": "Architect",
+    "status": "on_mission",
+    "primarySkill": "Azure & .NET",
+    "skills": ["C#", ".NET", "Azure", "Microservices", "Kubernetes"],
+    "tjm": 850,
+    "yearsOfExperience": 14,
+    "missionEndDate": "2027-06-30",
+    "clientId": "c5",
+    "email": "lea.fontaine@benchzero.io",
+    "phone": "+33 6 89 17 63 10",
+    "location": "Vélizy",
+    "languages": ["French", "English"],
+    "certifications": ["Microsoft Certified: Azure Solutions Architect Expert"],
+    "bio": "Solutions architect modernising mission-critical .NET estates towards Azure-native microservices.",
+    "missionHistory": [
+      { "clientName": "Thales Group", "role": "Solutions Architect", "startDate": "2025-07-01", "endDate": "2027-06-30" }
+    ]
+  },
+  {
+    "id": "9",
+    "fullName": "Hugo Lambert",
+    "title": "Web Developer (Vue.js / PHP)",
+    "seniority": "Junior",
+    "status": "on_bench",
+    "primarySkill": "Vue.js & Symfony",
+    "skills": ["Vue.js", "PHP", "Symfony", "MySQL", "TypeScript"],
+    "tjm": 420,
+    "yearsOfExperience": 2,
+    "daysOnBench": 9,
+    "email": "hugo.lambert@benchzero.io",
+    "phone": "+33 6 90 28 74 21",
+    "location": "Nantes",
+    "languages": ["French", "English"],
+    "certifications": [],
+    "bio": "Junior web developer with e-commerce back-office experience on Symfony and Vue.js.",
+    "missionHistory": [
+      { "clientName": "Maisons du Monde", "role": "Web Developer", "startDate": "2024-09-02", "endDate": "2026-09-05" }
+    ]
+  },
+  {
+    "id": "10",
+    "fullName": "Nadia Haddad",
+    "title": "Cloud Security Engineer",
+    "seniority": "Senior",
+    "status": "on_mission",
+    "primarySkill": "Cloud Security",
+    "skills": ["Cloud Security", "IAM", "Azure", "Python", "SIEM"],
+    "tjm": 760,
+    "yearsOfExperience": 9,
+    "missionEndDate": "2026-12-15",
+    "clientId": "c5",
+    "email": "nadia.haddad@benchzero.io",
+    "phone": "+33 6 01 39 85 32",
+    "location": "Vélizy",
+    "languages": ["French", "English", "Arabic"],
+    "certifications": ["CISSP", "Microsoft Certified: Cybersecurity Architect Expert"],
+    "bio": "Security engineer hardening Azure landing zones, identity governance and SOC detection pipelines.",
+    "missionHistory": [
+      { "clientName": "Thales Group", "role": "Cloud Security Engineer", "startDate": "2025-12-15", "endDate": "2026-12-15" }
+    ]
+  },
+  {
+    "id": "11",
+    "fullName": "Maxime Girard",
+    "title": "Fullstack Angular / Java Developer",
+    "seniority": "Mid",
+    "status": "ending_soon",
+    "primarySkill": "Angular & Spring",
+    "skills": ["Angular", "TypeScript", "Java", "Spring Boot", "PostgreSQL"],
+    "tjm": 580,
+    "yearsOfExperience": 5,
+    "missionEndDate": "2026-10-03",
+    "clientId": "c4",
+    "email": "maxime.girard@benchzero.io",
+    "phone": "+33 6 12 40 96 43",
+    "location": "La Défense",
+    "languages": ["French", "English"],
+    "certifications": [],
+    "bio": "Fullstack developer on trading back-office tools combining Angular front-ends with Spring Boot APIs.",
+    "missionHistory": [
+      { "clientName": "Société Générale", "role": "Fullstack Developer", "startDate": "2025-04-01", "endDate": "2026-10-03" }
+    ]
+  },
+  {
+    "id": "12",
+    "fullName": "Chloé Rousseau",
+    "title": "Analytics Engineer (dbt / Snowflake)",
+    "seniority": "Senior",
+    "status": "on_mission",
+    "primarySkill": "Data & BI",
+    "skills": ["SQL", "dbt", "Snowflake", "Power BI", "Python"],
+    "tjm": 650,
+    "yearsOfExperience": 8,
+    "missionEndDate": "2027-02-28",
+    "clientId": "c1",
+    "email": "chloe.rousseau@benchzero.io",
+    "phone": "+33 6 23 51 07 54",
+    "location": "Paris",
+    "languages": ["French", "English", "Italian"],
+    "certifications": ["dbt Analytics Engineering Certification", "SnowPro Core"],
+    "bio": "Analytics engineer modelling risk and finance data marts with dbt on Snowflake.",
+    "missionHistory": [
+      { "clientName": "BNP Paribas Group", "role": "Analytics Engineer", "startDate": "2025-03-03", "endDate": "2027-02-28" }
+    ]
+  },
+  {
+    "id": "13",
+    "fullName": "Karim Mansouri",
+    "title": "Systems Engineer (Rust / Go)",
+    "seniority": "Lead",
+    "status": "on_mission",
+    "primarySkill": "Rust & Go",
+    "skills": ["Rust", "Go", "Kubernetes", "gRPC", "Linux"],
+    "tjm": 820,
+    "yearsOfExperience": 11,
+    "missionEndDate": "2027-04-30",
+    "clientId": "c2",
+    "email": "karim.mansouri@benchzero.io",
+    "phone": "+33 6 34 62 18 65",
+    "location": "Toulouse",
+    "languages": ["French", "English"],
+    "certifications": [],
+    "bio": "Systems engineer writing low-latency ground-segment services in Rust and Go.",
+    "missionHistory": [
+      { "clientName": "Airbus Defence & Space", "role": "Lead Systems Engineer", "startDate": "2025-05-01", "endDate": "2027-04-30" }
+    ]
+  },
+  {
+    "id": "14",
+    "fullName": "Emma Petit",
+    "title": "QA Automation Engineer",
+    "seniority": "Mid",
+    "status": "on_bench",
+    "primarySkill": "Playwright & Cypress",
+    "skills": ["Playwright", "Cypress", "TypeScript", "Java", "CI/CD"],
+    "tjm": 500,
+    "yearsOfExperience": 4,
+    "daysOnBench": 5,
+    "email": "emma.petit@benchzero.io",
+    "phone": "+33 6 45 73 29 76",
+    "location": "Lille",
+    "languages": ["French", "English"],
+    "certifications": ["ISTQB Foundation Level"],
+    "bio": "Test automation engineer building end-to-end Playwright suites wired into CI quality gates.",
+    "missionHistory": [
+      { "clientName": "Auchan Retail", "role": "QA Automation Engineer", "startDate": "2024-03-04", "endDate": "2026-09-11" }
+    ]
   }
 ]

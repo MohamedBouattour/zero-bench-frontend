@@ -34,6 +34,12 @@ const DICTIONARY: Record<SupportedLanguage, Translations> = {
       search: 'Search',
       close: 'Close',
     },
+    header: {
+      notifications: 'Notifications',
+      markAllRead: 'Mark all as read',
+      noNotifications: 'You are all caught up.',
+      searchShortcut: 'Press Ctrl K to search',
+    },
     stats: {
       financialExposure: 'Financial Exposure',
       onBenchCount: 'Consultants on Bench',
@@ -71,6 +77,12 @@ const DICTIONARY: Record<SupportedLanguage, Translations> = {
       comfortableView: 'Confortable',
       search: 'Recherche',
       close: 'Fermer',
+    },
+    header: {
+      notifications: 'Notifications',
+      markAllRead: 'Tout marquer comme lu',
+      noNotifications: 'Aucune nouvelle notification.',
+      searchShortcut: 'Ctrl K pour rechercher',
     },
     stats: {
       financialExposure: 'Exposition Financière',

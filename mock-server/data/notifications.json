@@ -1,0 +1,41 @@
+[
+  {
+    "id": "n1",
+    "type": "bench_alert",
+    "title": "Bench threshold exceeded",
+    "message": "Julien Moreau has been on bench for 31 days.",
+    "createdAt": "2026-09-16T08:05:00.000Z",
+    "read": false,
+    "route": "/consultants",
+    "queryParams": { "id": "5" }
+  },
+  {
+    "id": "n2",
+    "type": "ai_match",
+    "title": "New 96% AI match",
+    "message": "Alexandre Martin matches BNP Paribas – Digital Portal Lead Architect.",
+    "createdAt": "2026-09-16T07:40:00.000Z",
+    "read": false,
+    "route": "/pitch-generator",
+    "queryParams": { "consultantId": "1", "clientId": "c1", "rfpId": "r1" }
+  },
+  {
+    "id": "n3",
+    "type": "contract_ending",
+    "title": "Mission ending in 14 days",
+    "message": "Camille Leroy's mission at LVMH Digital ends on 30 Sep.",
+    "createdAt": "2026-09-15T16:20:00.000Z",
+    "read": false,
+    "route": "/consultants",
+    "queryParams": { "id": "2" }
+  },
+  {
+    "id": "n4",
+    "type": "placement",
+    "title": "Interview scheduled",
+    "message": "Camille Leroy – final round with BNP Paribas on Thursday.",
+    "createdAt": "2026-09-11T11:20:00.000Z",
+    "read": true,
+    "route": "/placements"
+  }
+]

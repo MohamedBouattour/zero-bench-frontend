@@ -2,43 +2,107 @@
   {
     "id": "p1",
     "stage": "matched",
-    "candidateName": "Alexandre M.",
-    "candidateRole": "Senior Angular Lead",
-    "clientName": "BNP Paribas",
+    "consultantId": "1",
+    "clientId": "c1",
+    "rfpId": "r1",
+    "roleTitle": "Digital Portal Lead Architect",
     "matchScore": 96,
-    "statusLabel": "96% Match"
+    "note": "AI match – send tailored pitch within 24h.",
+    "createdAt": "2026-09-14T09:12:00.000Z",
+    "updatedAt": "2026-09-14T09:12:00.000Z",
+    "history": [{ "stage": "matched", "at": "2026-09-14T09:12:00.000Z" }]
   },
   {
     "id": "p2",
     "stage": "matched",
-    "candidateName": "Julien M.",
-    "candidateRole": "Java Microservices Specialist",
-    "clientName": "Thales Group",
+    "consultantId": "5",
+    "clientId": "c4",
+    "rfpId": "r6",
+    "roleTitle": "Java Microservices Lead",
     "matchScore": 91,
-    "statusLabel": "91% Match"
+    "note": "Strong Kafka and Spring Boot overlap.",
+    "createdAt": "2026-09-12T14:30:00.000Z",
+    "updatedAt": "2026-09-12T14:30:00.000Z",
+    "history": [{ "stage": "matched", "at": "2026-09-12T14:30:00.000Z" }]
   },
   {
     "id": "p3",
     "stage": "pitch_sent",
-    "candidateName": "Thomas B.",
-    "candidateRole": "K8s & Cloud Architect",
-    "clientName": "Airbus Defense",
-    "statusLabel": "Awaiting Feedback"
+    "consultantId": "3",
+    "clientId": "c2",
+    "rfpId": "r3",
+    "roleTitle": "Cloud Platform Engineer",
+    "matchScore": 88,
+    "note": "Awaiting feedback from Marc Delaunay.",
+    "createdAt": "2026-09-08T10:00:00.000Z",
+    "updatedAt": "2026-09-10T16:45:00.000Z",
+    "history": [
+      { "stage": "matched", "at": "2026-09-08T10:00:00.000Z" },
+      { "stage": "pitch_sent", "at": "2026-09-10T16:45:00.000Z" }
+    ]
   },
   {
     "id": "p4",
     "stage": "interviewing",
-    "candidateName": "Camille L.",
-    "candidateRole": "Data Pipeline Specialist",
-    "clientName": "LVMH Digital",
-    "statusLabel": "Final Round Thu"
+    "consultantId": "2",
+    "clientId": "c1",
+    "rfpId": "r2",
+    "roleTitle": "Data Platform Engineer",
+    "matchScore": 84,
+    "note": "Final round on Thursday 10:00.",
+    "createdAt": "2026-09-01T08:30:00.000Z",
+    "updatedAt": "2026-09-11T11:20:00.000Z",
+    "history": [
+      { "stage": "matched", "at": "2026-09-01T08:30:00.000Z" },
+      { "stage": "pitch_sent", "at": "2026-09-03T09:15:00.000Z" },
+      { "stage": "interviewing", "at": "2026-09-11T11:20:00.000Z" }
+    ]
   },
   {
     "id": "p5",
     "stage": "signed",
-    "candidateName": "Sarah B.",
-    "candidateRole": "Fullstack React Developer",
-    "clientName": "Société Générale",
-    "statusLabel": "Starts Oct 1"
+    "consultantId": "4",
+    "clientId": "c4",
+    "roleTitle": "Fullstack React Developer",
+    "matchScore": 90,
+    "note": "Contract signed – mission started April 1st.",
+    "createdAt": "2026-03-02T09:00:00.000Z",
+    "updatedAt": "2026-03-20T15:00:00.000Z",
+    "history": [
+      { "stage": "matched", "at": "2026-03-02T09:00:00.000Z" },
+      { "stage": "pitch_sent", "at": "2026-03-04T10:00:00.000Z" },
+      { "stage": "interviewing", "at": "2026-03-12T14:00:00.000Z" },
+      { "stage": "signed", "at": "2026-03-20T15:00:00.000Z" }
+    ]
+  },
+  {
+    "id": "p6",
+    "stage": "matched",
+    "consultantId": "14",
+    "clientId": "c6",
+    "rfpId": "r10",
+    "roleTitle": "QA Automation Engineer",
+    "matchScore": 89,
+    "note": "Prospect account – intro call pending.",
+    "createdAt": "2026-09-15T13:05:00.000Z",
+    "updatedAt": "2026-09-15T13:05:00.000Z",
+    "history": [{ "stage": "matched", "at": "2026-09-15T13:05:00.000Z" }]
+  },
+  {
+    "id": "p7",
+    "stage": "lost",
+    "consultantId": "9",
+    "clientId": "c3",
+    "rfpId": "r5",
+    "roleTitle": "Fullstack React Developer",
+    "matchScore": 52,
+    "note": "Client required senior React profile.",
+    "createdAt": "2026-08-20T09:00:00.000Z",
+    "updatedAt": "2026-09-02T17:10:00.000Z",
+    "history": [
+      { "stage": "matched", "at": "2026-08-20T09:00:00.000Z" },
+      { "stage": "pitch_sent", "at": "2026-08-22T10:30:00.000Z" },
+      { "stage": "lost", "at": "2026-09-02T17:10:00.000Z" }
+    ]
   }
 ]

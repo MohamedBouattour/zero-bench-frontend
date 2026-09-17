@@ -23,15 +23,14 @@ Seed JSON Datastore (mock-server/data/consultants.json)
 
 ## 📐 2. Mock Datastore Conventions
 
-1. **Location:** Seed JSON files reside exclusively in `mock-server/data/<domain>.json`:
-   - `consultants.json`
-   - `risk-overview.json`
-   - `clients.json`
-   - `placements.json`
-2. **Server Implementation (`mock-server/server.mjs`):**
-   - Express server running on port `3001`.
-   - Supports query filtering (e.g. `?status=on_bench`, `?search=react`).
-   - Supports latency simulation for realistic loading states.
+1. **Location:** Seed JSON files reside exclusively in `mock-server/data/`:
+   - `consultants.json`, `clients.json` (with RFPs), `placements.json`
+   - `risk-overview.json` (targets & period trends), `skills-catalog.json`, `notifications.json`, `session.json`
+2. **Server Implementation (`mock-server/`):**
+   - `server.mjs` bootstraps Express on port `3001`, simulated latency (`MOCK_LATENCY`, default 250 ms) and a JSON 404 for unknown `/api` routes.
+   - `lib/db.mjs` clones the seeds into an **in-memory** datastore (seed files are never written; `POST /api/__reset` restores them) and holds shared joins and the match-scoring function.
+   - `routes/*.mjs` — one router per domain (consultants, clients, placements, analytics, pitch, workspace). Derived values (client billing, risk metrics, skills gap) are computed from the live data, so mutations are reflected everywhere.
+   - Errors are returned as `{ "error": "message" }` with a 4xx status.
 3. **Execution Scripts (`package.json`):**
    ```json
    "scripts": {

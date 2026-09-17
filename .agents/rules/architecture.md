@@ -8,7 +8,15 @@
 
 ## 2. Component First Hierarchy
 - Global layout elements strictly live inside `src/app/core/components/` (`sidebar`, `header`, `breadcrumbs`, `layout`, `logo`).
-- Domain-specific reusable widgets strictly live inside `src/app/core/widgets/` (`status-badge`, `stat-card`, `ai-sparkle-card`, `data-table-container`, `lang-selector`, `theme-toggle`).
+- Domain-specific reusable widgets strictly live inside `src/app/core/widgets/` (`status-badge`, `stat-card`, `ai-sparkle-card`, `data-table-container`, `lang-selector`, `theme-toggle`, `modal`, `avatar`, `error-state`, `skeleton`, `toast`, `loading-bar`, `notifications-menu`).
+- Feature-specific sub-components (modals, cards, charts) live in `src/app/features/<domain>/components/`.
+
+## 2b. Modern Angular Syntax (mandatory)
+- No `CommonModule` / `NgClass` / structural directives: use `@if` / `@for` / `@switch` / `@let`, `[class]` bindings and standalone pipes (`DatePipe`, `CurrencyPipe`…).
+- No `standalone: true` (default). Every component uses `ChangeDetectionStrategy.OnPush`, `input()` / `output()` / `model()` / `viewChild()`, and `host` metadata instead of `@HostListener`.
+- Derive template values with `computed()`; do not call methods that build class strings in templates. Router events go through `toSignal()`.
+- Modals use `app-modal` (native `<dialog>`), are controlled by the parent and, for pages, driven by query params (`?id=`, `?mode=new|edit`).
+- Never put a custom element directly inside `<table>`/`<tbody>`: the HTML parser moves it and hydration fails (NG0500). Use `<tbody appSkeletonRows>` for loading rows.
 - Bounded contexts live inside `src/app/features/<domain>/`.
 
 ## 3. Domain-Driven Design (DDD) Model Flow
@@ -20,6 +28,8 @@
 - Domain reactive state must be managed via `@ngrx/signals` SignalStore (`signalStore`, `withState`, `withComputed`, `withMethods`, `patchState`).
 - Domain API services must use `HttpClient` with the SSR-safe `API_BASE_URL` token.
 - UI state stores in `src/app/core/stores/` must be SSR-safe: check `isPlatformBrowser(inject(PLATFORM_ID))` before accessing browser APIs.
+- Routes are prerendered: stores fetch API data **in the browser only** (`injectIsBrowser()` from `core/utils/platform.util.ts`) and start with `isLoading: true` so prerendered HTML shows skeletons instead of freezing build-time data into the transfer cache.
+- Mutations (`create`, `update`, `remove`) throw an `Error` carrying the API message (`toErrorMessage`); components show the toast and close the modal.
 
 ## 5. Zero Mock Overhead Policy
 - No hardcoded mock data objects or static arrays in `src/` runtime application files.

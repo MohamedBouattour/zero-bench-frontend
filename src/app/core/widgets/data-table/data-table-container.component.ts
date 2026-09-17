@@ -1,10 +1,16 @@
-import { Component, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, input, model } from '@angular/core';
+import { LanguageStore } from '../../stores/language.store';
+
+export type TableDensity = 'compact' | 'comfortable';
+
+const DENSITY_BUTTON_BASE = 'px-2.5 py-1 rounded-md font-medium transition-all';
+const DENSITY_BUTTON_ACTIVE =
+  'bg-surface-container-lowest dark:bg-slate-700 shadow-xs text-on-surface dark:text-white';
+const DENSITY_BUTTON_IDLE = 'text-outline dark:text-slate-400 hover:text-on-surface dark:hover:text-white';
 
 @Component({
   selector: 'app-data-table-container',
-  standalone: true,
-  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
       class="bg-surface-container-lowest dark:bg-slate-900 border border-outline-variant dark:border-slate-800 rounded-xl overflow-hidden shadow-sm"
@@ -24,75 +30,62 @@ import { CommonModule } from '@angular/common';
           }
         </div>
 
-        <div class="flex items-center gap-2.5">
+        <div class="flex flex-wrap items-center gap-2.5">
           <!-- Density Toggle -->
           <div
             class="flex items-center p-0.5 bg-surface-container-low dark:bg-slate-800 rounded-lg border border-outline-variant dark:border-slate-700 text-xs"
+            role="group"
+            aria-label="Table density"
           >
             <button
               type="button"
-              (click)="setDensity('compact')"
-              class="px-2.5 py-1 rounded-md font-medium transition-all"
-              [class.bg-surface-container-lowest]="density() === 'compact'"
-              [class.dark:bg-slate-700]="density() === 'compact'"
-              [class.shadow-xs]="density() === 'compact'"
-              [class.text-on-surface]="density() === 'compact'"
-              [class.dark:text-white]="density() === 'compact'"
-              [class.text-outline]="density() !== 'compact'"
+              (click)="density.set('compact')"
+              [class]="compactButtonClass()"
+              [attr.aria-pressed]="density() === 'compact'"
             >
-              Compact
+              {{ t().actions.compactView }}
             </button>
             <button
               type="button"
-              (click)="setDensity('comfortable')"
-              class="px-2.5 py-1 rounded-md font-medium transition-all"
-              [class.bg-surface-container-lowest]="density() === 'comfortable'"
-              [class.dark:bg-slate-700]="density() === 'comfortable'"
-              [class.shadow-xs]="density() === 'comfortable'"
-              [class.text-on-surface]="density() === 'comfortable'"
-              [class.dark:text-white]="density() === 'comfortable'"
-              [class.text-outline]="density() !== 'comfortable'"
+              (click)="density.set('comfortable')"
+              [class]="comfortableButtonClass()"
+              [attr.aria-pressed]="density() === 'comfortable'"
             >
-              Comfortable
+              {{ t().actions.comfortableView }}
             </button>
           </div>
 
-          <ng-content select="[actions]"></ng-content>
+          <ng-content select="[actions]" />
         </div>
       </div>
 
-      <!-- Table Body Slot -->
-      <div class="overflow-x-auto" [class.table-compact]="density() === 'compact'">
-        <ng-content></ng-content>
+      <!-- Table Body Slot: compact density tightens every projected cell -->
+      <div class="overflow-x-auto" [class]="bodyClass()">
+        <ng-content />
       </div>
 
       <!-- Footer / Pagination Slot -->
       <div
-        class="px-5 py-3 border-t border-outline-variant dark:border-slate-800 flex items-center justify-between text-xs text-outline dark:text-slate-400 bg-surface-bright/20 dark:bg-slate-900/40"
-      >
-        <ng-content select="[footer]"></ng-content>
-      </div>
+        class="empty:hidden px-5 py-3 border-t border-outline-variant dark:border-slate-800 flex items-center justify-between text-xs text-outline dark:text-slate-400 bg-surface-bright/20 dark:bg-slate-900/40"
+      ><ng-content select="[footer]" /></div>
     </div>
   `,
-  styles: [
-    `
-      :host ::ng-deep .table-compact th,
-      :host ::ng-deep .table-compact td {
-        padding-top: 6px !important;
-        padding-bottom: 6px !important;
-      }
-    `,
-  ],
 })
 export class DataTableContainerComponent {
   readonly title = input.required<string>();
   readonly subtitle = input<string>();
+  readonly density = model<TableDensity>('compact');
 
-  readonly density = signal<'compact' | 'comfortable'>('compact');
-  readonly densityChanged = output<'compact' | 'comfortable'>();
+  protected readonly t = inject(LanguageStore).translations;
 
-  setDensity(d: 'compact' | 'comfortable'): void {
-    this.density.set(d);
-    this.densityChanged.emit(d);
-  }
+  protected readonly bodyClass = computed(() =>
+    this.density() === 'compact' ? '[&_td]:py-1.5 [&_th]:py-1.5' : '',
+  );
+
+  protected readonly compactButtonClass = computed(
+    () => `${DENSITY_BUTTON_BASE} ${this.density() === 'compact' ? DENSITY_BUTTON_ACTIVE : DENSITY_BUTTON_IDLE}`,
+  );
+  protected readonly comfortableButtonClass = computed(
+    () => `${DENSITY_BUTTON_BASE} ${this.density() === 'comfortable' ? DENSITY_BUTTON_ACTIVE : DENSITY_BUTTON_IDLE}`,
+  );
 }

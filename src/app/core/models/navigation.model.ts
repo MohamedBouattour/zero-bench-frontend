@@ -1,15 +1,21 @@
+import { Translations } from './language.model';
+
+export type NavLabelKey = Exclude<keyof Translations['nav'], 'coreIntelligence' | 'administration'>;
+
+export interface NavigationBadges {
+  placements: number;
+  consultantsOnBench: number;
+}
+
 export interface NavItem {
-  id: string;
-  labelKey: string;
-  defaultLabel: string;
+  id: NavLabelKey;
   route: string;
   icon: string;
-  badge?: string;
+  badgeKey?: keyof NavigationBadges;
   badgeType?: 'danger' | 'warning' | 'info' | 'success';
 }
 
 export interface NavSection {
-  titleKey: string;
-  defaultTitle: string;
+  titleKey: 'coreIntelligence' | 'administration';
   items: NavItem[];
 }

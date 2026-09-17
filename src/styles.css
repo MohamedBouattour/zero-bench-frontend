@@ -72,3 +72,101 @@ html:not(.dark) {
   color-scheme: light;
   background-color: #f8f9ff;
 }
+
+/* Native <dialog> modals: lock page scroll and animate in */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.modal-dialog[open] {
+  animation: modal-in 160ms ease-out;
+}
+
+.modal-dialog[open]::backdrop {
+  animation: backdrop-in 160ms ease-out;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-dialog[open],
+  .modal-dialog[open]::backdrop {
+    animation: none;
+  }
+}
+
+/* Shared form & button primitives (Stitch tokens, both themes) */
+@layer components {
+  .field-label {
+    @apply block mb-1 text-[11px] font-semibold uppercase tracking-wide text-outline dark:text-slate-400;
+  }
+
+  .field-input {
+    @apply w-full px-3 py-2 text-xs rounded-lg border border-outline-variant dark:border-slate-700 bg-surface-bright dark:bg-slate-800 text-on-surface dark:text-white placeholder:text-outline dark:placeholder:text-slate-500 transition-shadow focus:outline-none focus:ring-2 focus:ring-secondary-blue/40 focus-within:ring-2 focus-within:ring-secondary-blue/40 disabled:opacity-60;
+  }
+
+  .field-invalid {
+    @apply border-red-400 dark:border-red-700 focus:ring-red-500/30;
+  }
+
+  .field-error {
+    @apply block mt-1 text-[11px] font-medium text-red-600 dark:text-red-400;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-secondary-blue dark:bg-blue-600 text-white shadow-xs hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border border-outline-variant dark:border-slate-700 bg-surface-container-lowest dark:bg-slate-900 text-on-surface dark:text-slate-200 hover:bg-surface-container-low dark:hover:bg-slate-800 transition-colors disabled:opacity-60;
+  }
+
+  .chip-toggle {
+    @apply px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors;
+  }
+}
+
+/* Lightweight data-viz tooltip: <td class="viz-tip" [attr.data-tip]="..."> */
+.viz-tip {
+  position: relative;
+}
+
+.viz-tip:hover::after,
+.viz-tip:focus-visible::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  z-index: 30;
+  width: max-content;
+  max-width: 16rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  white-space: pre-line;
+  box-shadow: 0 8px 20px rgb(15 23 42 / 0.25);
+  pointer-events: none;
+}
+
+html.dark .viz-tip:hover::after,
+html.dark .viz-tip:focus-visible::after {
+  background: #f8fafc;
+  color: #0f172a;
+}

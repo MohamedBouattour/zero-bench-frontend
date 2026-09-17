@@ -1,11 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-loading-bar',
-  standalone: true,
-  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (loadingService.isLoading()) {
       <div
@@ -22,5 +20,5 @@ import { LoadingService } from '../../services/loading.service';
   `,
 })
 export class LoadingBarComponent {
-  readonly loadingService = inject(LoadingService);
+  protected readonly loadingService = inject(LoadingService);
 }

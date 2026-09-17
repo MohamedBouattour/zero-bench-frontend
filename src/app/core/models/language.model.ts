@@ -37,6 +37,12 @@ export interface Translations {
     search: string;
     close: string;
   };
+  header: {
+    notifications: string;
+    markAllRead: string;
+    noNotifications: string;
+    searchShortcut: string;
+  };
   stats: {
     financialExposure: string;
     onBenchCount: string;

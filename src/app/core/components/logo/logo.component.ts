@@ -1,25 +1,29 @@
-import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+
+const SIZES = {
+  sm: { box: 'w-8 h-8', text: 'text-sm', px: 32 },
+  md: { box: 'w-10 h-10', text: 'text-base', px: 40 },
+  lg: { box: 'w-12 h-12', text: 'text-lg', px: 48 },
+} as const;
 
 @Component({
   selector: 'app-logo',
-  standalone: true,
-  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgOptimizedImage],
   template: `
     <div class="flex items-center gap-3 select-none group">
       <!-- App Icon / Logo Mark -->
       <div
         class="relative flex items-center justify-center shrink-0 rounded-xl overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105"
-        [class.w-8]="size() === 'sm'"
-        [class.h-8]="size() === 'sm'"
-        [class.w-10]="size() === 'md'"
-        [class.h-10]="size() === 'md'"
-        [class.w-12]="size() === 'lg'"
-        [class.h-12]="size() === 'lg'"
+        [class]="sizing().box"
       >
         <img
-          src="/logo.png"
+          ngSrc="/logo.png"
           alt="BenchZero Logo"
+          [width]="sizing().px"
+          [height]="sizing().px"
+          priority
           class="w-full h-full object-cover rounded-xl"
         />
         <div class="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20 pointer-events-none"></div>
@@ -29,15 +33,12 @@ import { CommonModule } from '@angular/common';
       @if (showText()) {
         <div class="leading-tight">
           <div class="flex items-center gap-1.5">
-            <span
-              class="font-extrabold tracking-tight text-on-surface dark:text-white"
-              [class.text-sm]="size() === 'sm'"
-              [class.text-base]="size() === 'md'"
-              [class.text-lg]="size() === 'lg'"
-            >
+            <span class="font-extrabold tracking-tight text-on-surface dark:text-white" [class]="sizing().text">
               Bench<span class="text-secondary-blue dark:text-blue-400">Zero</span>
             </span>
-            <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-blue-100 dark:bg-blue-950/80 text-secondary-blue dark:text-blue-300 tracking-wider">
+            <span
+              class="px-1.5 py-px rounded text-[9px] font-extrabold uppercase bg-blue-100 dark:bg-blue-950/80 text-secondary-blue dark:text-blue-300 tracking-wider"
+            >
               ERP
             </span>
           </div>
@@ -55,4 +56,6 @@ export class LogoComponent {
   readonly size = input<'sm' | 'md' | 'lg'>('md');
   readonly showText = input<boolean>(true);
   readonly subtitle = input<string>('ESN Intelligence');
+
+  protected readonly sizing = computed(() => SIZES[this.size()]);
 }

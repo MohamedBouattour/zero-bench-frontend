@@ -1,22 +1,26 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { StatusBadgeComponent } from '../../core/widgets/status-badge/status-badge.component';
 import { StatCardComponent } from '../../core/widgets/stat-card/stat-card.component';
 import { AiSparkleCardComponent } from '../../core/widgets/ai-sparkle-card/ai-sparkle-card.component';
+import { AvatarComponent } from '../../core/widgets/avatar/avatar.component';
 import { DataTableContainerComponent } from '../../core/widgets/data-table/data-table-container.component';
+import { ErrorStateComponent } from '../../core/widgets/error-state/error-state.component';
+import { ModalComponent } from '../../core/widgets/modal/modal.component';
 import { SkeletonComponent } from '../../core/widgets/skeleton/skeleton.component';
 import { ToastService } from '../../core/services/toast.service';
 import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
   selector: 'app-design-system',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     StatusBadgeComponent,
     StatCardComponent,
     AiSparkleCardComponent,
+    AvatarComponent,
     DataTableContainerComponent,
+    ErrorStateComponent,
+    ModalComponent,
     SkeletonComponent,
   ],
   template: `
@@ -80,10 +84,10 @@ import { LoadingService } from '../../core/services/loading.service';
           2. Semantic Status Badges
         </h3>
         <div class="flex flex-wrap gap-3 p-4 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900">
-          <app-status-badge status="on_bench"></app-status-badge>
-          <app-status-badge status="on_mission"></app-status-badge>
-          <app-status-badge status="ending_soon"></app-status-badge>
-          <app-status-badge status="prospect"></app-status-badge>
+          <app-status-badge status="on_bench" />
+          <app-status-badge status="on_mission" />
+          <app-status-badge status="ending_soon" />
+          <app-status-badge status="prospect" />
         </div>
       </section>
 
@@ -102,7 +106,7 @@ import { LoadingService } from '../../core/services/loading.service';
             trend="+5.2%"
             trendDirection="up-bad"
             [progress]="70"
-          ></app-stat-card>
+           />
           <app-stat-card
             label="Team Capacity"
             value="94.2%"
@@ -111,7 +115,7 @@ import { LoadingService } from '../../core/services/loading.service';
             trend="+1.8%"
             trendDirection="up-good"
             [progress]="94"
-          ></app-stat-card>
+           />
           <app-stat-card
             label="Mandates Closing"
             value="7"
@@ -119,7 +123,7 @@ import { LoadingService } from '../../core/services/loading.service';
             icon="done_all"
             tone="primary"
             [progress]="50"
-          ></app-stat-card>
+           />
           <app-stat-card
             label="AI Matches"
             value="19"
@@ -129,7 +133,7 @@ import { LoadingService } from '../../core/services/loading.service';
             trend="+8"
             trendDirection="up-good"
             [progress]="85"
-          ></app-stat-card>
+           />
         </div>
       </section>
 
@@ -139,17 +143,17 @@ import { LoadingService } from '../../core/services/loading.service';
           4. Button Variants & Micro-interactions
         </h3>
         <div class="flex flex-wrap gap-3 p-4 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 items-center">
-          <button class="px-4 py-2 bg-secondary-blue text-white rounded-xl text-xs font-semibold shadow-xs hover:opacity-90 transition-opacity">
+          <button type="button" class="px-4 py-2 bg-secondary-blue text-white rounded-xl text-xs font-semibold shadow-xs hover:opacity-90 transition-opacity">
             Primary Action
           </button>
-          <button class="px-4 py-2 border border-outline-variant dark:border-slate-700 rounded-xl text-xs font-semibold hover:bg-surface-container-low dark:hover:bg-slate-800 transition-colors">
+          <button type="button" class="px-4 py-2 border border-outline-variant dark:border-slate-700 rounded-xl text-xs font-semibold hover:bg-surface-container-low dark:hover:bg-slate-800 transition-colors">
             Outlined Secondary
           </button>
-          <button class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-xs hover:bg-indigo-700 transition-colors">
+          <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-xs hover:bg-indigo-700 transition-colors">
             <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
             <span>AI Action</span>
           </button>
-          <button class="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-semibold hover:bg-red-700 transition-colors">
+          <button type="button" class="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-semibold hover:bg-red-700 transition-colors">
             Urgent Action
           </button>
         </div>
@@ -165,7 +169,7 @@ import { LoadingService } from '../../core/services/loading.service';
           description="Features 12px backdrop blur, subtle indigo inner glow, and rounded elevation per BenchZero specifications."
           [matchScore]="98"
           actionLabel="Execute Action"
-        ></app-ai-sparkle-card>
+         />
       </section>
 
       <!-- Data Table Container Showcase -->
@@ -191,13 +195,13 @@ import { LoadingService } from '../../core/services/loading.service';
                 <td class="px-5 py-3.5 font-medium text-on-surface dark:text-white">--color-secondary-blue</td>
                 <td class="px-5 py-3.5 font-mono text-outline">#0058BE</td>
                 <td class="px-5 py-3.5">Action Brand</td>
-                <td class="px-5 py-3.5 text-right"><app-status-badge status="on_mission" customLabel="Active"></app-status-badge></td>
+                <td class="px-5 py-3.5 text-right"><app-status-badge status="on_mission" customLabel="Active" /></td>
               </tr>
               <tr class="hover:bg-surface-container-low/40 dark:hover:bg-slate-800/30">
                 <td class="px-5 py-3.5 font-medium text-on-surface dark:text-white">--color-tertiary-indigo</td>
                 <td class="px-5 py-3.5 font-mono text-outline">#6366F1</td>
                 <td class="px-5 py-3.5">AI Intelligence</td>
-                <td class="px-5 py-3.5 text-right"><app-status-badge status="prospect" customLabel="Ready"></app-status-badge></td>
+                <td class="px-5 py-3.5 text-right"><app-status-badge status="prospect" customLabel="Ready" /></td>
               </tr>
             </tbody>
           </table>
@@ -272,28 +276,74 @@ import { LoadingService } from '../../core/services/loading.service';
           <div class="p-5 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 space-y-4">
             <span class="text-xs font-bold text-on-surface dark:text-white block">Text & Avatar Placeholders</span>
             <div class="flex items-center gap-3">
-              <app-skeleton variant="circle"></app-skeleton>
+              <app-skeleton variant="circle" />
               <div class="flex-1 space-y-2">
-                <app-skeleton variant="text" width="60%"></app-skeleton>
-                <app-skeleton variant="text" width="40%"></app-skeleton>
+                <app-skeleton variant="text" width="60%" />
+                <app-skeleton variant="text" width="40%" />
               </div>
             </div>
             <div class="pt-2 space-y-2">
-              <app-skeleton variant="text" [count]="3"></app-skeleton>
+              <app-skeleton variant="text" [count]="3" />
             </div>
           </div>
 
           <!-- Card Variant -->
           <div>
             <span class="text-xs font-bold text-on-surface dark:text-white block mb-2">Card Placeholder</span>
-            <app-skeleton variant="card"></app-skeleton>
+            <app-skeleton variant="card" />
           </div>
         </div>
       </section>
+
+      <!-- Overlays & Feedback -->
+      <section class="space-y-3">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-outline dark:text-slate-400">
+          9. Modal, Avatars & Error States
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-5 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 space-y-4">
+            <span class="text-xs font-bold text-on-surface dark:text-white block">Native &lt;dialog&gt; modal & avatars</span>
+            <div class="flex items-center gap-2">
+              <app-avatar name="Alexandre Martin" size="xs" />
+              <app-avatar name="Camille Leroy" size="sm" />
+              <app-avatar name="Thomas Bernard" size="md" />
+              <app-avatar name="Inès Dupont" size="lg" />
+            </div>
+            <button type="button" (click)="demoModalOpen.set(true)" class="btn-primary">
+              <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+              Open demo modal
+            </button>
+          </div>
+          <app-error-state
+            title="Consultants could not be loaded"
+            message="Unable to reach the server. Check the mock server on port 3001."
+            (retry)="triggerInfoToast()"
+          />
+        </div>
+      </section>
     </div>
+
+    <app-modal
+      [open]="demoModalOpen()"
+      icon="palette"
+      title="Demo modal"
+      subtitle="Focus trap, Escape, backdrop click and scroll lock come from the native dialog element."
+      (closed)="demoModalOpen.set(false)"
+    >
+      <p class="text-xs leading-relaxed text-on-surface-variant dark:text-slate-300">
+        Modals are controlled components: the parent owns <code>open</code> and reacts to <code>closed</code>.
+        Toasts render in the top layer too, so they stay visible above an open dialog.
+      </p>
+      <ng-container modal-footer>
+        <button type="button" (click)="triggerSuccessToast()" class="btn-secondary">Toast above modal</button>
+        <button type="button" (click)="demoModalOpen.set(false)" class="btn-primary">Got it</button>
+      </ng-container>
+    </app-modal>
   `,
 })
 export class DesignSystemComponent {
+  protected readonly demoModalOpen = signal(false);
+
   private readonly toastService = inject(ToastService);
   private readonly loadingService = inject(LoadingService);
 
@@ -310,7 +360,7 @@ export class DesignSystemComponent {
   }
 
   triggerWarningToast(): void {
-    this.toastService.warning('Consultant contract for Sarah Connor will expire in 7 days.', {
+    this.toastService.warning('Consultant contract for Camille Leroy will expire in 14 days.', {
       title: 'Contract Ending Soon',
     });
   }

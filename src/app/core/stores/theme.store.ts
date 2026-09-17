@@ -1,44 +1,35 @@
-import { Injectable, inject, PLATFORM_ID, signal, computed, effect } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable, computed, effect, signal } from '@angular/core';
 import { ThemeMode } from '../models/theme.model';
+import { injectIsBrowser } from '../utils/platform.util';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeStore {
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly isBrowser = injectIsBrowser();
   private readonly STORAGE_KEY = 'zero_bench_theme';
 
   readonly mode = signal<ThemeMode>(this.getInitialTheme());
   readonly isDark = computed(() => this.mode() === 'dark');
 
   constructor() {
-    // Synchronize DOM with theme state
+    // Persist the preference (localStorage for the anti-flash script, cookie for future SSR use)
     effect(() => {
       const currentMode = this.mode();
       if (this.isBrowser) {
         localStorage.setItem(this.STORAGE_KEY, currentMode);
         document.cookie = `${this.STORAGE_KEY}=${currentMode}; path=/; max-age=31536000; SameSite=Lax`;
-        const root = document.documentElement;
-        if (currentMode === 'dark') {
-          root.classList.add('dark');
-          root.style.colorScheme = 'dark';
-        } else {
-          root.classList.remove('dark');
-          root.style.colorScheme = 'light';
-        }
+        this.applyDomTheme(currentMode);
       }
     });
   }
 
   toggleTheme(): void {
-    const nextMode: ThemeMode = this.mode() === 'light' ? 'dark' : 'light';
-    this.applyDomTheme(nextMode);
-    this.mode.set(nextMode);
+    this.setTheme(this.mode() === 'light' ? 'dark' : 'light');
   }
 
   setTheme(mode: ThemeMode): void {
+    // Apply synchronously so the switch is instant, the effect then persists it.
     this.applyDomTheme(mode);
     this.mode.set(mode);
   }
@@ -46,13 +37,8 @@ export class ThemeStore {
   private applyDomTheme(mode: ThemeMode): void {
     if (!this.isBrowser) return;
     const root = document.documentElement;
-    if (mode === 'dark') {
-      root.classList.add('dark');
-      root.style.colorScheme = 'dark';
-    } else {
-      root.classList.remove('dark');
-      root.style.colorScheme = 'light';
-    }
+    root.classList.toggle('dark', mode === 'dark');
+    root.style.colorScheme = mode;
   }
 
   private getInitialTheme(): ThemeMode {
@@ -65,12 +51,11 @@ export class ThemeStore {
       return 'dark';
     }
 
-    const saved = localStorage.getItem(this.STORAGE_KEY) as ThemeMode | null;
+    const saved = localStorage.getItem(this.STORAGE_KEY);
     if (saved === 'light' || saved === 'dark') {
       return saved;
     }
 
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return prefersDark ? 'dark' : 'light';
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 }

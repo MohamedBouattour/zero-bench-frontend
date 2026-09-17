@@ -1,127 +1,162 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { FileExportService } from '../../core/services/file-export.service';
 import { LanguageStore } from '../../core/stores/language.store';
-import { BenchRiskStore } from './stores/bench-risk.store';
+import { AiSparkleCardComponent } from '../../core/widgets/ai-sparkle-card/ai-sparkle-card.component';
+import { AvatarComponent } from '../../core/widgets/avatar/avatar.component';
+import { DataTableContainerComponent } from '../../core/widgets/data-table/data-table-container.component';
+import { ErrorStateComponent } from '../../core/widgets/error-state/error-state.component';
+import { SkeletonComponent } from '../../core/widgets/skeleton/skeleton.component';
+import { SkeletonRowsComponent } from '../../core/widgets/skeleton/skeleton-rows.component';
 import { StatCardComponent } from '../../core/widgets/stat-card/stat-card.component';
 import { StatusBadgeComponent } from '../../core/widgets/status-badge/status-badge.component';
-import { AiSparkleCardComponent } from '../../core/widgets/ai-sparkle-card/ai-sparkle-card.component';
-import { DataTableContainerComponent } from '../../core/widgets/data-table/data-table-container.component';
+import { ConsultantDetailModalComponent } from '../consultants/components/consultant-detail-modal.component';
+import { Consultant, WORKING_DAYS_PER_MONTH } from '../consultants/models/consultant.model';
+import { RISK_PERIOD_OPTIONS } from './models/bench-risk.model';
+import { BenchRiskStore } from './stores/bench-risk.store';
+
 
 @Component({
   selector: 'app-bench-risk',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
+    CurrencyPipe,
+    DatePipe,
+    DecimalPipe,
     RouterLink,
+    AiSparkleCardComponent,
+    AvatarComponent,
+    DataTableContainerComponent,
+    ErrorStateComponent,
+    SkeletonComponent,
+    SkeletonRowsComponent,
     StatCardComponent,
     StatusBadgeComponent,
-    AiSparkleCardComponent,
-    DataTableContainerComponent,
+    ConsultantDetailModalComponent,
   ],
   template: `
     <div class="space-y-6 pb-12">
       <!-- Domain Header -->
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-bold tracking-tight text-on-surface dark:text-white">
-            Bench Risk Overview
-          </h2>
+          <h2 class="text-2xl font-bold tracking-tight text-on-surface dark:text-white">Bench Risk Overview</h2>
           <p class="text-xs text-outline dark:text-slate-400 mt-1">
             Real-time monitoring of inter-contrat periods, consultant availability, and daily cost exposure.
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button
-            type="button"
-            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 text-on-surface dark:text-slate-200 hover:bg-surface-container-low dark:hover:bg-slate-800 transition-colors shadow-xs"
+        <div class="flex flex-wrap items-center gap-2">
+          <div
+            class="flex items-center p-0.5 rounded-xl border border-outline-variant dark:border-slate-800 bg-surface-container-lowest dark:bg-slate-900 text-xs"
+            role="group"
+            aria-label="Trend period"
           >
-            <span class="material-symbols-outlined text-[16px]">calendar_today</span>
-            <span>Current Quarter</span>
-          </button>
-          <button
-            type="button"
-            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-secondary-blue dark:bg-blue-600 text-white hover:opacity-90 transition-opacity shadow-xs shadow-secondary-blue/20"
-          >
+            @for (option of periods; track option.value) {
+              @let active = riskStore.period() === option.value;
+              <button
+                type="button"
+                (click)="riskStore.setPeriod(option.value)"
+                class="px-3 py-1.5 rounded-lg font-semibold transition-colors"
+                [class]="active ? 'bg-secondary-blue dark:bg-blue-600 text-white shadow-xs' : 'text-outline dark:text-slate-400 hover:text-on-surface dark:hover:text-white'"
+                [attr.aria-pressed]="active"
+              >
+                {{ option.label }}
+              </button>
+            }
+          </div>
+          <button type="button" (click)="exportReport()" [disabled]="!riskStore.metrics()" class="btn-primary">
             <span class="material-symbols-outlined text-[16px]">download</span>
             <span>{{ t().actions.exportReport }}</span>
           </button>
         </div>
       </div>
 
-      <!-- Loading skeleton -->
-      @if (riskStore.isLoading() && !riskStore.metrics()) {
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
-          @for (i of [1, 2, 3, 4]; track i) {
-            <div class="h-32 rounded-xl bg-surface-container-low dark:bg-slate-800"></div>
-          }
-        </div>
-      } @else if (riskStore.metrics(); as metrics) {
-        <!-- KPI Metrics Grid from NgRx SignalStore -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @if (riskStore.error(); as error) {
+        <app-error-state title="Risk overview unavailable" [message]="error" (retry)="riskStore.loadOverview()" />
+      }
+
+      <!-- KPI Metrics Grid -->
+      @if (riskStore.metrics(); as metrics) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" [class.opacity-60]="riskStore.isLoading()">
           <app-stat-card
             [label]="t().stats.financialExposure"
-            [value]="metrics.financialExposure"
+            [value]="(metrics.financialExposureMonthly | currency: 'EUR' : 'symbol' : '1.0-0') ?? ''"
             unit="/ mo"
             icon="payments"
             tone="danger"
             [trend]="metrics.financialExposureTrend"
             [trendDirection]="metrics.financialExposureTrendDirection"
-            subtext="vs last month"
-            [progress]="65"
-          ></app-stat-card>
-
+            [subtext]="metrics.exposureBudgetUsage + '% of ' + (metrics.exposureBudgetMonthly | currency: 'EUR' : 'symbol' : '1.0-0') + ' budget'"
+            [progress]="metrics.exposureBudgetUsage > 100 ? 100 : metrics.exposureBudgetUsage"
+          />
           <app-stat-card
             [label]="t().stats.onBenchCount"
             [value]="metrics.onBenchCount"
             unit="consultants"
             icon="person_alert"
             tone="danger"
-            trend="+2"
-            trendDirection="up-bad"
-            [subtext]="metrics.onBenchSubtext"
-            [progress]="40"
-          ></app-stat-card>
-
+            [trend]="metrics.onBenchTrend"
+            [trendDirection]="metrics.onBenchTrendDirection"
+            [subtext]="metrics.endingSoonCount + ' missions ending ≤ 30 days'"
+            [progress]="metrics.benchRatio"
+          />
           <app-stat-card
             [label]="t().stats.placementVelocity"
-            [value]="metrics.placementVelocity"
+            [value]="(metrics.placementVelocityDays | number: '1.1-1') ?? ''"
             unit="days avg"
             icon="speed"
             tone="success"
             [trend]="metrics.placementVelocityTrend"
             [trendDirection]="metrics.placementVelocityTrendDirection"
-            subtext="time to match"
-            [progress]="82"
-          ></app-stat-card>
-
+            [subtext]="'target < ' + metrics.placementVelocityTargetDays + ' days'"
+            [progress]="metrics.placementVelocityProgress"
+          />
           <app-stat-card
             [label]="t().stats.avgBenchDays"
-            [value]="metrics.avgBenchDays"
+            [value]="(metrics.avgBenchDays | number: '1.1-1') ?? ''"
             unit="days"
             icon="hourglass_empty"
             tone="warning"
             [trend]="metrics.avgBenchDaysTrend"
             [trendDirection]="metrics.avgBenchDaysTrendDirection"
-            subtext="target: <15 days"
-            [progress]="55"
-          ></app-stat-card>
+            [subtext]="'target < ' + metrics.benchDaysTarget + ' days'"
+            [progress]="metrics.avgBenchDaysProgress"
+          />
+        </div>
+      } @else if (riskStore.isLoading()) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          @for (i of [1, 2, 3, 4]; track i) {
+            <app-skeleton variant="card" />
+          }
         </div>
       }
 
       <!-- AI Proactive Recommendation Layer -->
-      <app-ai-sparkle-card
-        title="High-Value Placement Opportunity Detected"
-        description="Alexandre Martin (Senior Angular/Fullstack, 22 days on bench) matches 96% with BNP Paribas' open 'Digital Portal Lead' RFP. Submitting an AI tailored pitch within 24h could prevent €14,000 inter-contrat loss."
-        [matchScore]="96"
-        actionLabel="Review & Generate Pitch"
-      ></app-ai-sparkle-card>
+      @if (riskStore.recommendation(); as rec) {
+        <app-ai-sparkle-card
+          title="High-Value Placement Opportunity Detected"
+          [description]="rec.consultantName + ' (' + rec.consultantTitle + ', ' + rec.daysOnBench + ' days on bench) matches ' + rec.matchScore + '% with ' + rec.clientName + '’s open “' + rec.rfpTitle + '” RFP. Staffing now avoids ' + (rec.potentialLoss | currency: 'EUR' : 'symbol' : '1.0-0') + ' of monthly inter-contrat cost.'"
+          [matchScore]="rec.matchScore"
+          actionLabel="Review & Generate Pitch"
+          secondaryActionLabel="Add to pipeline"
+          (actionClicked)="generatePitch(rec.consultantId, rec.clientId, rec.rfpId)"
+          (secondaryActionClicked)="addToPipeline(rec.consultantId, rec.clientId, rec.rfpId)"
+        >
+          <div class="flex flex-wrap gap-1 mt-2">
+            @for (skill of rec.matchedSkills; track skill) {
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-100/70 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
+                {{ skill }}
+              </span>
+            }
+          </div>
+        </app-ai-sparkle-card>
+      }
 
-      <!-- Risk Table Widget populated via NgRx SignalStore -->
+      <!-- Risk Table -->
       <app-data-table-container
         title="Active Inter-contrat & Ending Missions"
-        subtitle="Live synchronization with backend risk matrix"
+        subtitle="Bench consultants sorted by bench duration, then missions ending soonest"
       >
         <table class="w-full text-left border-collapse text-xs">
           <thead>
@@ -135,69 +170,137 @@ import { DataTableContainerComponent } from '../../core/widgets/data-table/data-
               <th class="px-5 py-3 text-right">Action</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-outline-variant/60 dark:divide-slate-800/60">
-            @for (c of riskStore.highRiskConsultants(); track c.id) {
-              <tr class="hover:bg-surface-container-low/40 dark:hover:bg-slate-800/30 transition-colors">
-                <td class="px-5 py-3.5 font-medium text-on-surface dark:text-white flex items-center gap-2.5">
-                  <div class="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center font-bold text-[10px] text-slate-700 dark:text-slate-300">
-                    {{ c.fullName.slice(0, 2).toUpperCase() }}
-                  </div>
-                  <div>
-                    <span class="block font-semibold">{{ c.fullName }}</span>
-                    <span class="block text-[10px] text-outline dark:text-slate-400">{{ c.title }}</span>
-                  </div>
-                </td>
-                <td class="px-5 py-3.5">
-                  <span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-low dark:bg-slate-800 text-on-surface-variant dark:text-slate-300 font-medium">
-                    {{ c.primarySkill }}
-                  </span>
-                </td>
-                <td class="px-5 py-3.5 text-on-surface-variant dark:text-slate-300 font-medium">
-                  {{ c.seniority }}
-                </td>
-                <td class="px-5 py-3.5">
-                  <app-status-badge [status]="c.status"></app-status-badge>
-                </td>
-                <td class="px-5 py-3.5 font-semibold text-on-surface dark:text-white">
-                  €{{ c.tjm }}/d
-                </td>
-                <td class="px-5 py-3.5 text-on-surface-variant dark:text-slate-300">
-                  @if (c.status === 'on_bench') {
-                    <span class="font-bold text-red-600 dark:text-red-400">{{ c.daysOnBench }} days</span>
-                  } @else {
-                    <span>Ends: {{ c.missionEndDate }}</span>
-                  }
-                </td>
-                <td class="px-5 py-3.5 text-right">
-                  <button
-                    type="button"
-                    class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-surface-container-low dark:bg-slate-800 text-secondary-blue dark:text-blue-400 hover:bg-secondary-blue hover:text-white transition-colors"
-                  >
-                    Match RFPs
-                  </button>
-                </td>
-              </tr>
-            }
-          </tbody>
+          @if (riskStore.isLoading() && riskStore.highRiskConsultants().length === 0) {
+            <tbody appSkeletonRows [rows]="4" [columns]="7"></tbody>
+          } @else {
+            <tbody class="divide-y divide-outline-variant/60 dark:divide-slate-800/60">
+              @for (c of riskStore.highRiskConsultants(); track c.id) {
+                <tr class="hover:bg-surface-container-low/40 dark:hover:bg-slate-800/30 transition-colors cursor-pointer" (click)="selectedId.set(c.id)">
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-2.5">
+                      <app-avatar [name]="c.fullName" size="sm" />
+                      <div>
+                        <button
+                          type="button"
+                          (click)="$event.stopPropagation(); selectedId.set(c.id)"
+                          class="block font-semibold text-on-surface dark:text-white hover:text-secondary-blue dark:hover:text-blue-400 text-left"
+                        >
+                          {{ c.fullName }}
+                        </button>
+                        <span class="block text-[10px] text-outline dark:text-slate-400">{{ c.title }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-5 py-3.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-low dark:bg-slate-800 text-on-surface-variant dark:text-slate-300 font-medium">
+                      {{ c.primarySkill }}
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-on-surface-variant dark:text-slate-300 font-medium">{{ c.seniority }}</td>
+                  <td class="px-5 py-3.5"><app-status-badge [status]="c.status" /></td>
+                  <td class="px-5 py-3.5 font-semibold text-on-surface dark:text-white whitespace-nowrap">
+                    {{ c.tjm | currency: 'EUR' : 'symbol' : '1.0-0' }}/d
+                  </td>
+                  <td class="px-5 py-3.5 text-on-surface-variant dark:text-slate-300 whitespace-nowrap">
+                    @if (c.status === 'on_bench') {
+                      <span class="font-bold text-red-600 dark:text-red-400">{{ c.daysOnBench ?? 0 }} days</span>
+                      <span class="block text-[10px] text-outline">
+                        {{ c.tjm * workingDays | currency: 'EUR' : 'symbol' : '1.0-0' }}/mo exposure
+                      </span>
+                    } @else {
+                      <span>Ends {{ c.missionEndDate | date: 'd MMM y' }}</span>
+                      <span class="block text-[10px] text-outline">{{ c.clientName }}</span>
+                    }
+                  </td>
+                  <td class="px-5 py-3.5 text-right" (click)="$event.stopPropagation()">
+                    <a
+                      routerLink="/pitch-generator"
+                      [queryParams]="{ consultantId: c.id }"
+                      class="inline-block px-2.5 py-1 text-xs font-semibold rounded-lg bg-surface-container-low dark:bg-slate-800 text-secondary-blue dark:text-blue-400 hover:bg-secondary-blue hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors"
+                    >
+                      Match RFPs
+                    </a>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="7" class="px-5 py-10 text-center text-outline dark:text-slate-400">
+                    <span class="material-symbols-outlined text-3xl block mb-1 text-emerald-500">celebration</span>
+                    No consultant on bench and no mission ending soon.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          }
         </table>
 
         <div footer class="flex items-center justify-between w-full">
-          <span>Showing {{ riskStore.highRiskConsultants().length }} high-risk profiles</span>
+          <span>Showing {{ riskStore.highRiskConsultants().length }} at-risk profiles</span>
           <a routerLink="/consultants" class="font-semibold text-secondary-blue dark:text-blue-400 hover:underline">
             View full directory &rarr;
           </a>
         </div>
       </app-data-table-container>
     </div>
+
+    @if (selectedConsultant(); as consultant) {
+      <app-consultant-detail-modal
+        [consultant]="consultant"
+        [allowDelete]="false"
+        (edit)="editConsultant($event)"
+        (closed)="selectedId.set(null)"
+      />
+    }
   `,
 })
 export class BenchRiskComponent implements OnInit {
-  private readonly langStore = inject(LanguageStore);
-  readonly riskStore = inject(BenchRiskStore);
+  protected readonly riskStore = inject(BenchRiskStore);
+  protected readonly t = inject(LanguageStore).translations;
+  private readonly fileExport = inject(FileExportService);
+  private readonly router = inject(Router);
 
-  readonly t = this.langStore.translations;
+  protected readonly periods = RISK_PERIOD_OPTIONS;
+  protected readonly workingDays = WORKING_DAYS_PER_MONTH;
+  protected readonly selectedId = signal<string | null>(null);
+
+  protected readonly selectedConsultant = computed(() => {
+    const id = this.selectedId();
+    return id ? (this.riskStore.consultantMap().get(id) ?? null) : null;
+  });
 
   ngOnInit(): void {
-    this.riskStore.loadOverview();
+    void this.riskStore.loadOverview();
+  }
+
+  protected generatePitch(consultantId: string, clientId: string, rfpId: string): void {
+    void this.router.navigate(['/pitch-generator'], { queryParams: { consultantId, clientId, rfpId } });
+  }
+
+  protected addToPipeline(consultantId: string, clientId: string, rfpId: string): void {
+    void this.router.navigate(['/placements'], { queryParams: { mode: 'new', consultantId, clientId, rfpId } });
+  }
+
+  protected editConsultant(consultant: Consultant): void {
+    void this.router.navigate(['/consultants'], { queryParams: { id: consultant.id, mode: 'edit' } });
+  }
+
+  protected exportReport(): void {
+    const metrics = this.riskStore.metrics();
+    if (!metrics) return;
+    this.fileExport.downloadCsv(
+      `bench-risk-${this.riskStore.period()}-${new Date().toISOString().slice(0, 10)}.csv`,
+      this.riskStore.highRiskConsultants().map((c) => ({
+        Consultant: c.fullName,
+        Title: c.title,
+        Seniority: c.seniority,
+        Status: c.status,
+        'Primary skill': c.primarySkill,
+        'TJM (EUR)': c.tjm,
+        'Days on bench': c.daysOnBench,
+        'Monthly exposure (EUR)': c.status === 'on_bench' ? c.tjm * WORKING_DAYS_PER_MONTH : 0,
+        'Mission end': c.missionEndDate,
+        Client: c.clientName,
+      })),
+    );
   }
 }

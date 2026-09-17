@@ -1,17 +1,41 @@
 {
-  "metrics": {
-    "financialExposure": "€48,250",
-    "financialExposureMonthly": 48250,
-    "financialExposureTrend": "+12.4%",
-    "financialExposureTrendDirection": "up-bad",
-    "onBenchCount": 14,
-    "onBenchSubtext": "3 ending this week",
-    "placementVelocity": "8.4",
-    "placementVelocityTrend": "-1.2 days",
-    "placementVelocityTrendDirection": "down-good",
-    "avgBenchDays": "18.5",
-    "avgBenchDaysTrend": "-0.5",
-    "avgBenchDaysTrendDirection": "down-good"
-  },
-  "highRiskConsultantIds": ["1", "3", "5"]
+  "workingDaysPerMonth": 20,
+  "exposureBudgetMonthly": 60000,
+  "benchDaysTarget": 15,
+  "placementVelocityTargetDays": 10,
+  "periods": {
+    "month": {
+      "financialExposureTrend": "+12.4%",
+      "financialExposureTrendDirection": "up-bad",
+      "onBenchTrend": "+2",
+      "onBenchTrendDirection": "up-bad",
+      "placementVelocityDays": 8.4,
+      "placementVelocityTrend": "-1.2 days",
+      "placementVelocityTrendDirection": "down-good",
+      "avgBenchDaysTrend": "-0.5",
+      "avgBenchDaysTrendDirection": "down-good"
+    },
+    "quarter": {
+      "financialExposureTrend": "-4.1%",
+      "financialExposureTrendDirection": "down-good",
+      "onBenchTrend": "-1",
+      "onBenchTrendDirection": "down-good",
+      "placementVelocityDays": 9.1,
+      "placementVelocityTrend": "-0.6 days",
+      "placementVelocityTrendDirection": "down-good",
+      "avgBenchDaysTrend": "+1.8",
+      "avgBenchDaysTrendDirection": "up-bad"
+    },
+    "year": {
+      "financialExposureTrend": "-18.7%",
+      "financialExposureTrendDirection": "down-good",
+      "onBenchTrend": "-6",
+      "onBenchTrendDirection": "down-good",
+      "placementVelocityDays": 10.3,
+      "placementVelocityTrend": "-3.4 days",
+      "placementVelocityTrendDirection": "down-good",
+      "avgBenchDaysTrend": "-6.2",
+      "avgBenchDaysTrendDirection": "down-good"
+    }
+  }
 }
