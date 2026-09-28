@@ -3,9 +3,9 @@ export type ConsultantStatus = 'on_bench' | 'on_mission' | 'ending_soon' | 'pros
 /** Billable days per month used for bench cost, billing and pipeline value (TJM × days). */
 export const WORKING_DAYS_PER_MONTH = 20;
 
-export type ConsultantSeniority = 'Junior' | 'Mid' | 'Senior' | 'Lead' | 'Architect';
+export type ConsultantRank = 'Junior' | 'Mid' | 'Senior' | 'Lead' | 'Architect';
 
-export const CONSULTANT_SENIORITIES: readonly ConsultantSeniority[] = ['Junior', 'Mid', 'Senior', 'Lead', 'Architect'];
+export const CONSULTANT_SENIORITIES: readonly ConsultantRank[] = ['Junior', 'Mid', 'Senior', 'Lead', 'Architect'];
 
 export const CONSULTANT_STATUS_OPTIONS: readonly { value: ConsultantStatus; label: string }[] = [
   { value: 'on_bench', label: 'On Bench' },
@@ -25,7 +25,7 @@ export interface Consultant {
   id: string;
   fullName: string;
   title: string;
-  seniority: ConsultantSeniority;
+  rank: ConsultantRank;
   status: ConsultantStatus;
   primarySkill: string;
   skills: string[];
@@ -52,7 +52,7 @@ export type ConsultantPayload = Omit<Consultant, 'id' | 'clientName' | 'missionH
 
 export type ConsultantStatusFilter = ConsultantStatus | 'ALL';
 
-export type ConsultantSortField = 'fullName' | 'seniority' | 'tjm' | 'availability';
+export type ConsultantSortField = 'fullName' | 'rank' | 'tjm' | 'availability';
 
 export interface ConsultantSort {
   field: ConsultantSortField;

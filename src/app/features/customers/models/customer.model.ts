@@ -1,4 +1,4 @@
-import { Consultant, ConsultantSeniority, ConsultantStatus } from '../../consultants/models/consultant.model';
+import { Consultant, ConsultantRank, ConsultantStatus } from '../../consultants/models/consultant.model';
 
 export type ClientStatus = 'active' | 'prospect' | 'paused';
 
@@ -39,7 +39,7 @@ export interface ClientRfp {
   id: string;
   title: string;
   requiredSkills: string[];
-  seniority: ConsultantSeniority;
+  rank: ConsultantRank;
   dailyBudget: number;
   startDate: string;
   status: RfpStatus;
@@ -53,7 +53,7 @@ export interface ClientDetail extends ClientAccount {
 
 export type ClientPayload = Pick<ClientAccount, 'name' | 'industry' | 'status' | 'city' | 'contactName' | 'contactEmail'>;
 
-export type RfpPayload = Pick<ClientRfp, 'title' | 'requiredSkills' | 'seniority' | 'dailyBudget' | 'startDate'>;
+export type RfpPayload = Pick<ClientRfp, 'title' | 'requiredSkills' | 'rank' | 'dailyBudget' | 'startDate'>;
 
 export type ClientStatusFilter = ClientStatus | 'ALL';
 

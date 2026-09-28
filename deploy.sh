@@ -39,7 +39,11 @@ ssh ${SSH_OPTS} "${SSH_USER}@${SSH_HOST}" "mkdir -p ${TARGET_DIR}/browser ${TARG
 rsync -avz --delete -e "ssh ${SSH_OPTS}" ./dist/zero-bench/browser/ "${SSH_USER}@${SSH_HOST}:${TARGET_DIR}/browser/"
 rsync -avz --delete -e "ssh ${SSH_OPTS}" ./dist/zero-bench/server/ "${SSH_USER}@${SSH_HOST}:${TARGET_DIR}/server/"
 
-# Step 4: Graceful Reload without disrupting sibling services
+# Step 4: Synchronize & Reload Mock Server API
+echo "🚀 Synchronizing Mock Server..."
+./scripts/deploy-mock.sh
+
+# Step 5: Graceful Reload without disrupting sibling services
 echo "🔄 Reloading localized static target on server..."
 ssh ${SSH_OPTS} "${SSH_USER}@${SSH_HOST}" "systemctl reload nginx 2>/dev/null || true"
 

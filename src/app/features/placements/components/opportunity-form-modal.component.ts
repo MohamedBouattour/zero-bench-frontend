@@ -89,7 +89,7 @@ export interface OpportunityPrefill {
                 <span class="px-1.5 py-0.5 rounded bg-white/80 dark:bg-slate-900/70 text-on-surface-variant dark:text-slate-300">{{ skill }}</span>
               }
             </div>
-            <p class="text-outline dark:text-slate-400">{{ rfp.seniority }} · budget €{{ rfp.dailyBudget }}/day · starts {{ rfp.startDate }}</p>
+            <p class="text-outline dark:text-slate-400">{{ rfp.rank }} · budget €{{ rfp.dailyBudget }}/day · starts {{ rfp.startDate }}</p>
           </div>
         }
 

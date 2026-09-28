@@ -9,7 +9,7 @@ const consultant = (overrides: Partial<Consultant>): Consultant => ({
   id: '1',
   fullName: 'Alexandre Martin',
   title: 'Angular Architect',
-  seniority: 'Lead',
+  rank: 'Lead',
   status: 'on_bench',
   primarySkill: 'Angular',
   skills: ['Angular', 'TypeScript'],

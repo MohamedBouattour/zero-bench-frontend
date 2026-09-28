@@ -163,7 +163,7 @@ import { BenchRiskStore } from './stores/bench-risk.store';
             <tr class="border-b border-outline-variant dark:border-slate-800 bg-surface-container-low/50 dark:bg-slate-800/40 text-outline dark:text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
               <th class="px-5 py-3">Consultant</th>
               <th class="px-5 py-3">Primary Tech</th>
-              <th class="px-5 py-3">Seniority</th>
+              <th class="px-5 py-3">Rank</th>
               <th class="px-5 py-3">Status</th>
               <th class="px-5 py-3">TJM</th>
               <th class="px-5 py-3">Bench Days / End Date</th>
@@ -196,7 +196,7 @@ import { BenchRiskStore } from './stores/bench-risk.store';
                       {{ c.primarySkill }}
                     </span>
                   </td>
-                  <td class="px-5 py-3.5 text-on-surface-variant dark:text-slate-300 font-medium">{{ c.seniority }}</td>
+                  <td class="px-5 py-3.5 text-on-surface-variant dark:text-slate-300 font-medium">{{ c.rank }}</td>
                   <td class="px-5 py-3.5"><app-status-badge [status]="c.status" /></td>
                   <td class="px-5 py-3.5 font-semibold text-on-surface dark:text-white whitespace-nowrap">
                     {{ c.tjm | currency: 'EUR' : 'symbol' : '1.0-0' }}/d
@@ -292,7 +292,7 @@ export class BenchRiskComponent implements OnInit {
       this.riskStore.highRiskConsultants().map((c) => ({
         Consultant: c.fullName,
         Title: c.title,
-        Seniority: c.seniority,
+        Rank: c.rank,
         Status: c.status,
         'Primary skill': c.primarySkill,
         'TJM (EUR)': c.tjm,

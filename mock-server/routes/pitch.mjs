@@ -61,8 +61,8 @@ function composePitch({ consultant, client, rfp, rfpTitle, tone, language, match
   } else if (tone === 'leadership') {
     paragraphs.push(
       fr
-        ? `${firstName} apporte ${consultant.yearsOfExperience} ans d'expérience sur un profil ${consultant.seniority}, avec l'habitude d'aligner produit, ingénierie et métiers pour sécuriser la delivery.${missionClause}`
-        : `${firstName} brings ${consultant.yearsOfExperience} years of delivery experience as a ${consultant.seniority} profile, used to aligning product, engineering and business stakeholders to keep delivery on track.${missionClause}`,
+        ? `${firstName} apporte ${consultant.yearsOfExperience} ans d'expérience sur un profil ${consultant.rank}, avec l'habitude d'aligner produit, ingénierie et métiers pour sécuriser la delivery.${missionClause}`
+        : `${firstName} brings ${consultant.yearsOfExperience} years of delivery experience as a ${consultant.rank} profile, used to aligning product, engineering and business stakeholders to keep delivery on track.${missionClause}`,
     );
   } else {
     paragraphs.push(
@@ -96,13 +96,13 @@ function composePitch({ consultant, client, rfp, rfpTitle, tone, language, match
 
   const keyStrengths = fr
     ? [
-        `${consultant.yearsOfExperience} ans d'expérience (${consultant.seniority})`,
+        `${consultant.yearsOfExperience} ans d'expérience (${consultant.rank})`,
         rfp ? `${match.matchedSkills.length}/${rfp.requiredSkills.length} compétences requises couvertes` : `Stack principale : ${consultant.primarySkill}`,
         availability(consultant, language).replace(/^./, (c) => c.toUpperCase()),
         `TJM ${consultant.tjm} €`,
       ]
     : [
-        `${consultant.yearsOfExperience} years of experience (${consultant.seniority})`,
+        `${consultant.yearsOfExperience} years of experience (${consultant.rank})`,
         rfp ? `${match.matchedSkills.length}/${rfp.requiredSkills.length} required skills covered` : `Core stack: ${consultant.primarySkill}`,
         availability(consultant, language).replace(/^./, (c) => c.toUpperCase()),
         `Daily rate €${consultant.tjm}`,

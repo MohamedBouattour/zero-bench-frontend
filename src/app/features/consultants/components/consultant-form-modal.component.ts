@@ -14,7 +14,7 @@ import {
   CONSULTANT_STATUS_OPTIONS,
   Consultant,
   ConsultantPayload,
-  ConsultantSeniority,
+  ConsultantRank,
   ConsultantStatus,
 } from '../models/consultant.model';
 
@@ -88,8 +88,8 @@ function clientRequiredWhenStaffed(group: AbstractControl): ValidationErrors | n
         <fieldset class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-5 border-t border-outline-variant/60 dark:border-slate-800">
           <legend class="sr-only">Expertise</legend>
           <label class="block">
-            <span class="field-label">Seniority</span>
-            <select formControlName="seniority" class="field-input">
+            <span class="field-label">Rank</span>
+            <select formControlName="rank" class="field-input">
               @for (level of seniorities; track level) {
                 <option [value]="level">{{ level }}</option>
               }
@@ -236,7 +236,7 @@ export class ConsultantFormModalComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       location: [''],
-      seniority: this.fb.control<ConsultantSeniority>('Mid'),
+      rank: this.fb.control<ConsultantRank>('Mid'),
       yearsOfExperience: [0, [Validators.min(0), Validators.max(50)]],
       primarySkill: ['', Validators.required],
       skills: this.fb.control<string[]>([], Validators.required),
@@ -269,7 +269,7 @@ export class ConsultantFormModalComponent implements OnInit {
       email: c.email,
       phone: c.phone,
       location: c.location,
-      seniority: c.seniority,
+      rank: c.rank,
       yearsOfExperience: c.yearsOfExperience,
       primarySkill: c.primarySkill,
       skills: c.skills,
@@ -334,7 +334,7 @@ export class ConsultantFormModalComponent implements OnInit {
       email: value.email.trim(),
       phone: value.phone.trim(),
       location: value.location.trim(),
-      seniority: value.seniority,
+      rank: value.rank,
       yearsOfExperience: value.yearsOfExperience,
       primarySkill: value.primarySkill.trim(),
       skills: value.skills,

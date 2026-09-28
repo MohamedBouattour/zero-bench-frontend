@@ -1,4 +1,4 @@
-import { ConsultantSeniority, ConsultantStatus } from '../../consultants/models/consultant.model';
+import { ConsultantRank, ConsultantStatus } from '../../consultants/models/consultant.model';
 
 export type SkillDemandLevel = 'high' | 'medium' | 'low' | 'declining';
 
@@ -8,7 +8,7 @@ export interface SkillConsultantRef {
   id: string;
   fullName: string;
   status: ConsultantStatus;
-  seniority: ConsultantSeniority;
+  rank: ConsultantRank;
 }
 
 export interface SkillRfpRef {

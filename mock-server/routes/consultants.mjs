@@ -20,7 +20,7 @@ function validate(body) {
   if (!body.fullName?.trim()) return 'Full name is required';
   if (!body.title?.trim()) return 'Job title is required';
   if (!body.email || !EMAIL_PATTERN.test(body.email)) return 'A valid email is required';
-  if (!SENIORITIES.includes(body.seniority)) return `Seniority must be one of ${SENIORITIES.join(', ')}`;
+  if (!SENIORITIES.includes(body.rank)) return `Rank must be one of ${SENIORITIES.join(', ')}`;
   if (!CONSULTANT_STATUSES.includes(body.status)) return `Status must be one of ${CONSULTANT_STATUSES.join(', ')}`;
   if (!body.primarySkill?.trim()) return 'Primary skill is required';
   if (!Array.isArray(body.skills) || body.skills.length === 0) return 'At least one skill is required';
@@ -38,7 +38,7 @@ function sanitize(body, existing = {}) {
     ...existing,
     fullName: body.fullName.trim(),
     title: body.title.trim(),
-    seniority: body.seniority,
+    rank: body.rank,
     status: body.status,
     primarySkill: body.primarySkill.trim(),
     skills: [...new Set(body.skills.map((s) => String(s).trim()).filter(Boolean))],

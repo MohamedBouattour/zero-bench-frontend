@@ -42,7 +42,7 @@ function availabilityRank(a: Consultant, b: Consultant): number {
 
 const COMPARATORS: Record<ConsultantSortField, (a: Consultant, b: Consultant) => number> = {
   fullName: (a, b) => a.fullName.localeCompare(b.fullName),
-  seniority: (a, b) => CONSULTANT_SENIORITIES.indexOf(a.seniority) - CONSULTANT_SENIORITIES.indexOf(b.seniority),
+  rank: (a, b) => CONSULTANT_SENIORITIES.indexOf(a.rank) - CONSULTANT_SENIORITIES.indexOf(b.rank),
   tjm: (a, b) => a.tjm - b.tjm,
   availability: availabilityRank,
 };

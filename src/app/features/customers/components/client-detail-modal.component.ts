@@ -6,7 +6,7 @@ import { AvatarComponent } from '../../../core/widgets/avatar/avatar.component';
 import { ModalComponent } from '../../../core/widgets/modal/modal.component';
 import { SkeletonComponent } from '../../../core/widgets/skeleton/skeleton.component';
 import { StatusBadgeComponent } from '../../../core/widgets/status-badge/status-badge.component';
-import { CONSULTANT_SENIORITIES, ConsultantSeniority } from '../../consultants/models/consultant.model';
+import { CONSULTANT_SENIORITIES, ConsultantRank } from '../../consultants/models/consultant.model';
 import { ClientDetail, RfpPayload } from '../models/customer.model';
 import { ClientStatusChipComponent } from './client-status-chip.component';
 
@@ -118,8 +118,8 @@ import { ClientStatusChipComponent } from './client-status-chip.component';
                     <input formControlName="requiredSkills" class="field-input" placeholder="Python, Airflow, GCP" />
                   </label>
                   <label class="block">
-                    <span class="field-label">Seniority</span>
-                    <select formControlName="seniority" class="field-input">
+                    <span class="field-label">Rank</span>
+                    <select formControlName="rank" class="field-input">
                       @for (level of seniorities; track level) {
                         <option [value]="level">{{ level }}</option>
                       }
@@ -151,7 +151,7 @@ import { ClientStatusChipComponent } from './client-status-chip.component';
                     <div>
                       <p class="text-sm font-semibold text-on-surface dark:text-white">{{ rfp.title }}</p>
                       <p class="text-[11px] text-outline dark:text-slate-400">
-                        {{ rfp.seniority }} · {{ rfp.dailyBudget | currency: 'EUR' : 'symbol' : '1.0-0' }}/day · starts {{ rfp.startDate | date: 'd MMM y' }}
+                        {{ rfp.rank }} · {{ rfp.dailyBudget | currency: 'EUR' : 'symbol' : '1.0-0' }}/day · starts {{ rfp.startDate | date: 'd MMM y' }}
                       </p>
                     </div>
                     <span
@@ -249,7 +249,7 @@ export class ClientDetailModalComponent {
   protected readonly rfpForm = this.fb.group({
     title: ['', Validators.required],
     requiredSkills: ['', Validators.required],
-    seniority: this.fb.control<ConsultantSeniority>('Senior'),
+    rank: this.fb.control<ConsultantRank>('Senior'),
     dailyBudget: [650, [Validators.required, Validators.min(100)]],
     startDate: [''],
   });
@@ -263,7 +263,7 @@ export class ClientDetailModalComponent {
     this.addRfp.emit({
       title: value.title.trim(),
       requiredSkills: value.requiredSkills.split(',').map((s) => s.trim()).filter(Boolean),
-      seniority: value.seniority,
+      rank: value.rank,
       dailyBudget: value.dailyBudget,
       startDate: value.startDate,
     });

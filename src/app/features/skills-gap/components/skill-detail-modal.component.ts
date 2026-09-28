@@ -43,7 +43,7 @@ import { DemandBadgeComponent } from './demand-badge.component';
                   <app-avatar [name]="consultant.fullName" size="sm" />
                   <a routerLink="/consultants" [queryParams]="{ id: consultant.id }" class="flex-1 min-w-0 hover:underline">
                     <span class="block text-xs font-semibold text-on-surface dark:text-white truncate">{{ consultant.fullName }}</span>
-                    <span class="block text-[10px] text-outline dark:text-slate-400">{{ consultant.seniority }}</span>
+                    <span class="block text-[10px] text-outline dark:text-slate-400">{{ consultant.rank }}</span>
                   </a>
                   <app-status-badge [status]="consultant.status" />
                 </li>

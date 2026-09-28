@@ -89,7 +89,7 @@ const SENIORITY_RANK = { Junior: 1, Mid: 2, Senior: 3, Lead: 4, Architect: 5 };
 
 /**
  * Deterministic "AI" match score between a consultant and an RFP:
- * skill coverage drives the score, seniority and budget fit adjust it.
+ * skill coverage drives the score, rank and budget fit adjust it.
  */
 export function scoreMatch(consultant, rfp) {
   const required = rfp.requiredSkills ?? [];
@@ -98,8 +98,8 @@ export function scoreMatch(consultant, rfp) {
   const coverage = required.length ? matchedSkills.length / required.length : 0.5;
 
   let score = 40 + 55 * coverage;
-  const seniorityGap = (SENIORITY_RANK[rfp.seniority] ?? 0) - (SENIORITY_RANK[consultant.seniority] ?? 0);
-  score += seniorityGap > 0 ? -10 * seniorityGap : 1;
+  const rankGap = (SENIORITY_RANK[rfp.rank] ?? 0) - (SENIORITY_RANK[consultant.rank] ?? 0);
+  score += rankGap > 0 ? -10 * rankGap : 1;
   if (rfp.dailyBudget && consultant.tjm > rfp.dailyBudget) {
     score -= Math.round((consultant.tjm - rfp.dailyBudget) / 20);
   }

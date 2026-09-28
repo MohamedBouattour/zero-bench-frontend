@@ -1,0 +1,39 @@
+# ==============================================================================
+# Render Blueprint Specification for BenchZero Frontend
+# https://render.com/docs/blueprint-spec
+# ==============================================================================
+
+services:
+  # Option 1: Static Site (Fastest, zero-maintenance, global CDN)
+  - type: web
+    name: zero-bench-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist/zero-bench/browser
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: API_URL
+        value: https://wall-street.cloud/zero-bench/api
+
+  # Option 2: Node.js SSR Web Service (Full Server-Side Rendering)
+  - type: web
+    name: zero-bench-ssr
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run serve:ssr:zero-bench
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_URL
+        value: https://wall-street.cloud/zero-bench/api

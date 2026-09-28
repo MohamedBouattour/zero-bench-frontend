@@ -13,7 +13,7 @@
         "id": "r1",
         "title": "Digital Portal Lead Architect",
         "requiredSkills": ["Angular", "TypeScript", "AWS", "NestJS"],
-        "seniority": "Lead",
+        "rank": "Lead",
         "dailyBudget": 800,
         "startDate": "2026-10-05",
         "status": "open"
@@ -22,7 +22,7 @@
         "id": "r2",
         "title": "Data Platform Engineer",
         "requiredSkills": ["Python", "Apache Spark", "Airflow"],
-        "seniority": "Senior",
+        "rank": "Senior",
         "dailyBudget": 700,
         "startDate": "2026-10-19",
         "status": "open"
@@ -43,7 +43,7 @@
         "id": "r3",
         "title": "Cloud Platform Engineer",
         "requiredSkills": ["Kubernetes", "Terraform", "Azure", "CI/CD"],
-        "seniority": "Senior",
+        "rank": "Senior",
         "dailyBudget": 750,
         "startDate": "2026-10-01",
         "status": "open"
@@ -52,7 +52,7 @@
         "id": "r4",
         "title": "Ground Segment Rust Developer",
         "requiredSkills": ["Rust", "Linux", "gRPC"],
-        "seniority": "Senior",
+        "rank": "Senior",
         "dailyBudget": 760,
         "startDate": "2026-11-02",
         "status": "open"
@@ -73,7 +73,7 @@
         "id": "r5",
         "title": "Fullstack React Developer",
         "requiredSkills": ["React", "Next.js", "Node.js", "TypeScript"],
-        "seniority": "Mid",
+        "rank": "Mid",
         "dailyBudget": 600,
         "startDate": "2026-10-12",
         "status": "open"
@@ -94,7 +94,7 @@
         "id": "r6",
         "title": "Java Microservices Lead",
         "requiredSkills": ["Java", "Spring Boot", "Kafka", "Kubernetes"],
-        "seniority": "Senior",
+        "rank": "Senior",
         "dailyBudget": 720,
         "startDate": "2026-10-05",
         "status": "open"
@@ -103,7 +103,7 @@
         "id": "r7",
         "title": "Angular Front-end Developer",
         "requiredSkills": ["Angular", "TypeScript", "RxJS"],
-        "seniority": "Mid",
+        "rank": "Mid",
         "dailyBudget": 600,
         "startDate": "2026-10-26",
         "status": "open"
@@ -124,7 +124,7 @@
         "id": "r8",
         "title": "Cloud Security Architect",
         "requiredSkills": ["Cloud Security", "IAM", "Azure"],
-        "seniority": "Senior",
+        "rank": "Senior",
         "dailyBudget": 820,
         "startDate": "2026-11-16",
         "status": "open"
@@ -133,7 +133,7 @@
         "id": "r9",
         "title": "MLOps Engineer",
         "requiredSkills": ["Python", "PyTorch", "Docker", "Kubernetes"],
-        "seniority": "Senior",
+        "rank": "Senior",
         "dailyBudget": 700,
         "startDate": "2026-10-19",
         "status": "open"
@@ -154,7 +154,7 @@
         "id": "r10",
         "title": "QA Automation Engineer",
         "requiredSkills": ["Playwright", "Cypress", "TypeScript", "CI/CD"],
-        "seniority": "Mid",
+        "rank": "Mid",
         "dailyBudget": 520,
         "startDate": "2026-10-05",
         "status": "open"

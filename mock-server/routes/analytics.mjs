@@ -118,7 +118,7 @@ analyticsRouter.get('/skills-gap', (_req, res) => {
     }
   }
 
-  const toRef = (c) => ({ id: c.id, fullName: c.fullName, status: c.status, seniority: c.seniority });
+  const toRef = (c) => ({ id: c.id, fullName: c.fullName, status: c.status, rank: c.rank });
 
   const metrics = catalog.map((skill) => {
     const holders = db.consultants.filter((c) => hasSkill(c, skill.skillName));

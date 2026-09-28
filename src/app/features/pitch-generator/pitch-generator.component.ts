@@ -194,7 +194,7 @@ const sameRequest = (a: PitchRequest | null, b: PitchRequest | null): boolean =>
                     }
                   </div>
                   <p class="text-[10px] text-outline dark:text-slate-500 mt-1.5">
-                    {{ rfp.seniority }} · budget €{{ rfp.dailyBudget }}/day
+                    {{ rfp.rank }} · budget €{{ rfp.dailyBudget }}/day
                     @if (c.tjm > rfp.dailyBudget) {
                       <span class="text-amber-600 dark:text-amber-400 font-semibold">· TJM €{{ c.tjm - rfp.dailyBudget }} above budget</span>
                     }

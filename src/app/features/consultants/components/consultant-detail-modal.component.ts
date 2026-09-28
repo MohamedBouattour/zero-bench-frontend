@@ -21,7 +21,7 @@ import { Consultant, WORKING_DAYS_PER_MONTH } from '../models/consultant.model';
             <div class="flex flex-wrap items-center gap-2">
               <app-status-badge [status]="c.status" />
               <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-surface-container-low dark:bg-slate-800 text-on-surface-variant dark:text-slate-300">
-                {{ c.seniority }}
+                {{ c.rank }}
               </span>
               @if (c.location) {
                 <span class="inline-flex items-center gap-1 text-xs text-outline dark:text-slate-400">

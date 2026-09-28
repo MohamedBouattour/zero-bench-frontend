@@ -43,7 +43,7 @@ const CHIP_IDLE =
 
 const COLUMNS: readonly { label: string; sortField?: ConsultantSortField; align?: 'right' }[] = [
   { label: 'Consultant', sortField: 'fullName' },
-  { label: 'Seniority', sortField: 'seniority' },
+  { label: 'Rank', sortField: 'rank' },
   { label: 'Status' },
   { label: 'Key Skills' },
   { label: 'TJM', sortField: 'tjm' },
@@ -177,7 +177,7 @@ const COLUMNS: readonly { label: string; sortField?: ConsultantSortField; align?
                       </div>
                     </div>
                   </td>
-                  <td class="px-5 py-3 font-medium text-on-surface-variant dark:text-slate-300">{{ c.seniority }}</td>
+                  <td class="px-5 py-3 font-medium text-on-surface-variant dark:text-slate-300">{{ c.rank }}</td>
                   <td class="px-5 py-3"><app-status-badge [status]="c.status" /></td>
                   <td class="px-5 py-3">
                     <div class="flex flex-wrap gap-1 max-w-xs">
@@ -380,7 +380,7 @@ export class ConsultantsComponent implements OnInit {
       this.store.filteredConsultants().map((c) => ({
         Name: c.fullName,
         Title: c.title,
-        Seniority: c.seniority,
+        Rank: c.rank,
         Status: c.status,
         'Primary skill': c.primarySkill,
         Skills: c.skills.join(' | '),

@@ -28,7 +28,7 @@ function validateRfp(body) {
   if (!Array.isArray(body.requiredSkills) || body.requiredSkills.length === 0) {
     return 'At least one required skill is needed';
   }
-  if (!SENIORITIES.includes(body.seniority)) return `Seniority must be one of ${SENIORITIES.join(', ')}`;
+  if (!SENIORITIES.includes(body.rank)) return `Rank must be one of ${SENIORITIES.join(', ')}`;
   if (!Number.isFinite(body.dailyBudget) || body.dailyBudget < 100) return 'Daily budget must be at least 100';
   return null;
 }
@@ -120,7 +120,7 @@ clientsRouter.post('/:id/rfps', (req, res) => {
     id: nextId('r'),
     title: req.body.title.trim(),
     requiredSkills: [...new Set(req.body.requiredSkills.map((s) => String(s).trim()).filter(Boolean))],
-    seniority: req.body.seniority,
+    rank: req.body.rank,
     dailyBudget: req.body.dailyBudget,
     startDate: req.body.startDate || new Date().toISOString().slice(0, 10),
     status: 'open',
